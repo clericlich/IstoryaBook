@@ -1,0 +1,447 @@
+[gd_scene load_steps=16 format=3 uid="uid://cx6a6vwufvpga"]
+
+[ext_resource type="Theme" uid="uid://sx8r7eylidoh" path="res://Themes/Classic311/Classic311.tres" id="1_3fwi6"]
+[ext_resource type="Script" path="res://Scenes/CreateStory/create_story.gd" id="1_xyfu2"]
+[ext_resource type="Script" path="res://Scenes/CreateStory/StoryGraph.gd" id="1_yg3o8"]
+[ext_resource type="FontFile" uid="uid://by5f3g50o62f3" path="res://Assets/Font/Roboto/Roboto-Bold.ttf" id="3_pgjgw"]
+[ext_resource type="Script" path="res://Scenes/CreateStory/Characters.gd" id="4_uoucb"]
+[ext_resource type="Script" path="res://Scenes/CreateStory/Items.gd" id="6_1nu8t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kno4s"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_odxcu"]
+font_size = 24
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xqjhv"]
+bg_color = Color(0.152941, 0.164706, 0.168627, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_180en"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.152941, 0.164706, 0.168627, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_01hv3"]
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q1hrh"]
+bg_color = Color(0.345098, 0.345098, 0.345098, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="Theme" id="Theme_5suhe"]
+GraphNode/styles/panel = SubResource("StyleBoxFlat_xqjhv")
+GraphNode/styles/panel_selected = SubResource("StyleBoxFlat_180en")
+GraphNode/styles/titlebar = SubResource("StyleBoxFlat_01hv3")
+GraphNode/styles/titlebar_selected = SubResource("StyleBoxFlat_q1hrh")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pc8cf"]
+content_margin_left = 30.0
+content_margin_top = 10.0
+content_margin_right = 30.0
+content_margin_bottom = 10.0
+bg_color = Color(0.25098, 0.25098, 0.25098, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Theme" id="Theme_ou5rp"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_pc8cf")
+
+[node name="CreateStory" type="Control" node_paths=PackedStringArray("story_graph", "characters_tab", "title_input", "file_dialog")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xyfu2")
+story_graph = NodePath("TabContainer/Story/StoryGraph")
+characters_tab = NodePath("TabContainer/Characters")
+title_input = NodePath("TitleInput")
+file_dialog = NodePath("FileDialog")
+
+[node name="Items" type="Control" parent="."]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+anchors_preset = 0
+offset_top = 50.0
+offset_bottom = 50.0
+script = ExtResource("6_1nu8t")
+
+[node name="MarginContainer" type="MarginContainer" parent="Items"]
+layout_mode = 2
+offset_right = 1600.0
+offset_bottom = 819.0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 25
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Items/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="Items/MarginContainer/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 25
+columns = 4
+
+[node name="AddItemButton" type="Button" parent="Items/MarginContainer/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(350, 350)
+layout_mode = 2
+text = "Add Item"
+
+[node name="AddItemWindow" type="Panel" parent="Items"]
+visible = false
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -200.0
+offset_right = 250.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kno4s")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Items/AddItemWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Items/AddItemWindow/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Items/AddItemWindow/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "     Add Item"
+label_settings = SubResource("LabelSettings_odxcu")
+horizontal_alignment = 1
+
+[node name="HideWindow" type="Button" parent="Items/AddItemWindow/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "X"
+
+[node name="Label2" type="Label" parent="Items/AddItemWindow/VBoxContainer"]
+layout_mode = 2
+text = "Name of Item:
+"
+
+[node name="ItemNameInput" type="LineEdit" parent="Items/AddItemWindow/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="Items/AddItemWindow/VBoxContainer"]
+layout_mode = 2
+text = "Description:"
+
+[node name="DescriptionInput" type="TextEdit" parent="Items/AddItemWindow/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="FinishButton" type="Button" parent="Items/AddItemWindow/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Finish"
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+tab_alignment = 1
+
+[node name="Story" type="Control" parent="TabContainer"]
+layout_mode = 2
+
+[node name="StoryGraph" type="GraphEdit" parent="TabContainer/Story" node_paths=PackedStringArray("characters_tab")]
+layout_mode = 2
+offset_right = 1600.0
+offset_bottom = 819.0
+show_zoom_label = true
+show_arrange_button = false
+script = ExtResource("1_yg3o8")
+characters_tab = NodePath("../../Characters")
+
+[node name="StartNode" type="GraphNode" parent="TabContainer/Story/StoryGraph"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 400.0
+offset_right = 294.0
+offset_bottom = 473.0
+mouse_filter = 1
+theme = SubResource("Theme_5suhe")
+position_offset = Vector2(100, 400)
+slot/0/left_enabled = false
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+
+[node name="Label" type="Label" parent="TabContainer/Story/StoryGraph/StartNode"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_pgjgw")
+theme_override_font_sizes/font_size = 42
+text = "START"
+horizontal_alignment = 1
+
+[node name="AddTextBoxButton" type="Button" parent="TabContainer/Story"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 60.0
+offset_right = 123.0
+offset_bottom = 91.0
+theme = ExtResource("1_3fwi6")
+text = "+Text Box"
+alignment = 0
+
+[node name="AddChoiceBoxButton" type="Button" parent="TabContainer/Story"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 101.0
+offset_right = 123.0
+offset_bottom = 132.0
+theme = ExtResource("1_3fwi6")
+text = "+Choice Box"
+alignment = 0
+
+[node name="AddInputBoxButton" type="Button" parent="TabContainer/Story"]
+visible = false
+layout_mode = 0
+offset_left = 20.0
+offset_top = 141.0
+offset_right = 123.0
+offset_bottom = 172.0
+theme = ExtResource("1_3fwi6")
+text = "+Input Box"
+alignment = 0
+
+[node name="AddRollBoxButton" type="Button" parent="TabContainer/Story"]
+visible = false
+layout_mode = 0
+offset_left = 20.0
+offset_top = 181.0
+offset_right = 123.0
+offset_bottom = 212.0
+theme = ExtResource("1_3fwi6")
+text = "+Roll Box"
+alignment = 0
+
+[node name="Characters" type="Control" parent="TabContainer"]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+script = ExtResource("4_uoucb")
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Characters"]
+layout_mode = 2
+offset_right = 1600.0
+offset_bottom = 819.0
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 25
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Characters/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Characters/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 25
+theme_override_constants/v_separation = 50
+columns = 4
+
+[node name="AddCharacterButton" type="Button" parent="TabContainer/Characters/MarginContainer/ScrollContainer/GridContainer"]
+custom_minimum_size = Vector2(350, 350)
+layout_mode = 2
+text = "Add Character"
+
+[node name="AddCharacterWindow" type="Panel" parent="TabContainer/Characters"]
+visible = false
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -200.0
+offset_right = 250.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_kno4s")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Characters/AddCharacterWindow"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Characters/AddCharacterWindow/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Characters/AddCharacterWindow/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "     Add Character"
+label_settings = SubResource("LabelSettings_odxcu")
+horizontal_alignment = 1
+
+[node name="HideWindow" type="Button" parent="TabContainer/Characters/AddCharacterWindow/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "X"
+
+[node name="Label2" type="Label" parent="TabContainer/Characters/AddCharacterWindow/VBoxContainer"]
+layout_mode = 2
+text = "Name of Character:"
+
+[node name="CharacterNameInput" type="LineEdit" parent="TabContainer/Characters/AddCharacterWindow/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="TabContainer/Characters/AddCharacterWindow/VBoxContainer"]
+layout_mode = 2
+text = "Description:"
+
+[node name="DescriptionInput" type="TextEdit" parent="TabContainer/Characters/AddCharacterWindow/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="FinishButton" type="Button" parent="TabContainer/Characters/AddCharacterWindow/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Finish"
+
+[node name="TitleInput" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 19.0
+offset_right = 654.0
+offset_bottom = 64.0
+placeholder_text = "Title Here."
+
+[node name="ReturnButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 21.0
+offset_right = 77.0
+offset_bottom = 61.0
+text = "Return"
+
+[node name="Finish Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1520.0
+offset_top = 20.0
+offset_right = 1581.0
+offset_bottom = 60.0
+text = "Finish
+"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+initial_position = 2
+size = Vector2i(900, 500)
+access = 2
+
+[node name="ReturnWarning" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_ou5rp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ReturnWarning"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ReturnWarning/VBoxContainer"]
+layout_mode = 2
+text = "Return to Title Screen?
+All Progress with Story Creation will be Lost."
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ReturnWarning/VBoxContainer"]
+layout_mode = 2
+
+[node name="YesButton" type="Button" parent="ReturnWarning/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="ReturnWarning/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "No"
+
+[connection signal="pressed" from="Items/MarginContainer/ScrollContainer/GridContainer/AddItemButton" to="Items" method="_on_add_item_button_pressed"]
+[connection signal="pressed" from="Items/AddItemWindow/VBoxContainer/HBoxContainer/HideWindow" to="Items" method="_on_hide_window_pressed"]
+[connection signal="pressed" from="Items/AddItemWindow/VBoxContainer/FinishButton" to="Items" method="_on_finish_button_pressed"]
+[connection signal="connection_request" from="TabContainer/Story/StoryGraph" to="TabContainer/Story/StoryGraph" method="_on_connection_request"]
+[connection signal="connection_to_empty" from="TabContainer/Story/StoryGraph" to="TabContainer/Story/StoryGraph" method="_on_connection_to_empty"]
+[connection signal="pressed" from="TabContainer/Story/AddTextBoxButton" to="TabContainer/Story/StoryGraph" method="_on_add_text_box_button_pressed"]
+[connection signal="pressed" from="TabContainer/Story/AddChoiceBoxButton" to="TabContainer/Story/StoryGraph" method="_on_add_choice_box_button_pressed"]
+[connection signal="pressed" from="TabContainer/Characters/MarginContainer/ScrollContainer/GridContainer/AddCharacterButton" to="TabContainer/Characters" method="_on_add_character_button_pressed"]
+[connection signal="pressed" from="TabContainer/Characters/AddCharacterWindow/VBoxContainer/HBoxContainer/HideWindow" to="TabContainer/Characters" method="_on_hide_window_pressed"]
+[connection signal="pressed" from="TabContainer/Characters/AddCharacterWindow/VBoxContainer/FinishButton" to="TabContainer/Characters" method="_on_finish_button_pressed"]
+[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="Finish Button" to="." method="_on_finish_button_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

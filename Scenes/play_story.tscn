@@ -1,0 +1,122 @@
+[gd_scene load_steps=8 format=3 uid="uid://ddbgrc6qpljj3"]
+
+[ext_resource type="Script" path="res://Scenes/PlayStory/play_story.gd" id="1_28kaq"]
+[ext_resource type="Texture2D" uid="uid://dqaswtxv3m120" path="res://Assets/Images/round_settings_white_24dp.png" id="1_vclry"]
+[ext_resource type="Texture2D" uid="uid://crlx2tfsd6qjj" path="res://Assets/Images/blackboard2.jpg" id="1_w0jeb"]
+[ext_resource type="Texture2D" uid="uid://d1ai1uk4gi1v2" path="res://Assets/Images/round_folder_white_24dp.png" id="2_0br8r"]
+[ext_resource type="Texture2D" uid="uid://dd584d8tqqd5h" path="res://Assets/Images/round_group_white_24dp.png" id="2_t42rk"]
+[ext_resource type="FontFile" uid="uid://ch1yfvb3bpbgv" path="res://Assets/Font/Sedgwick_Ave/SedgwickAve-Regular.ttf" id="6_53gjj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_71k7s"]
+font = ExtResource("6_53gjj")
+font_size = 64
+outline_size = 18
+outline_color = Color(0, 0, 0, 1)
+
+[node name="play_story" type="Control" node_paths=PackedStringArray("story_title", "text_area", "scroll_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_28kaq")
+story_title = NodePath("StoryTitle")
+text_area = NodePath("ScrollContainer/TextArea")
+scroll_container = NodePath("ScrollContainer")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.698039, 0.698039, 0.698039, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_w0jeb")
+expand_mode = 1
+
+[node name="ReturnButton" type="Button" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 50.0
+text = "X"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -94.0
+offset_top = -50.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="FolderButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+icon = ExtResource("2_0br8r")
+icon_alignment = 1
+
+[node name="CharactersButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+icon = ExtResource("2_t42rk")
+icon_alignment = 1
+
+[node name="SettingsButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+icon = ExtResource("1_vclry")
+icon_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(1500, 700)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -750.0
+offset_top = -310.0
+offset_right = 750.0
+offset_bottom = 390.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+
+[node name="TextArea" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="StoryTitle" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -129.5
+offset_top = 40.0
+offset_right = 129.5
+offset_bottom = 117.0
+grow_horizontal = 2
+text = "StoryTitle"
+label_settings = SubResource("LabelSettings_71k7s")

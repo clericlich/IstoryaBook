@@ -1,0 +1,40 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://bhules4vvoytk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ljdpo"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.152941, 0.164706, 0.168627, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kgn5"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.152941, 0.164706, 0.168627, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nre4q"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 2.0
+bg_color = Color(0.211765, 0.211765, 0.211765, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nv3xr"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 2.0
+bg_color = Color(0.345098, 0.345098, 0.345098, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+
+[resource]
+GraphNode/styles/panel = SubResource("StyleBoxFlat_ljdpo")
+GraphNode/styles/panel_selected = SubResource("StyleBoxFlat_0kgn5")
+GraphNode/styles/titlebar = SubResource("StyleBoxFlat_nre4q")
+GraphNode/styles/titlebar_selected = SubResource("StyleBoxFlat_nv3xr")

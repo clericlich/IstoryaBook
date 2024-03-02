@@ -1,0 +1,165 @@
+[gd_scene load_steps=11 format=3 uid="uid://bbiwdmydosung"]
+
+[ext_resource type="Script" path="res://Scenes/SelectStory/select_story.gd" id="1_oabel"]
+[ext_resource type="FontFile" uid="uid://ch1yfvb3bpbgv" path="res://Assets/Font/Sedgwick_Ave/SedgwickAve-Regular.ttf" id="1_us1jg"]
+[ext_resource type="FontFile" uid="uid://pmtb2xa4u2sn" path="res://Assets/Font/Roboto/Roboto-Regular.ttf" id="2_jpjlo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t7ofd"]
+font = ExtResource("1_us1jg")
+font_size = 48
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xw8r1"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.317647, 0.317647, 0.317647, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="Theme" id="Theme_ioo17"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_xw8r1")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8g8u"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.156863, 0.156863, 0.156863, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yld61"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0yhgh"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.156863, 0.156863, 0.156863, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_521tm"]
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0.156863, 0.156863, 0.156863, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[node name="SelectStory" type="Control" node_paths=PackedStringArray("file_dialog", "story_tab_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_oabel")
+file_dialog = NodePath("FileDialog")
+story_tab_container = NodePath("ScrollContainer/StoryTabContainer")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.184314, 0.184314, 0.184314, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(1600, 800)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -800.0
+offset_top = -800.0
+offset_right = 800.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.207843, 0.207843, 0.207843, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 25.0
+offset_right = 415.0
+offset_bottom = 85.0
+text = "Select a Story"
+label_settings = SubResource("LabelSettings_t7ofd")
+
+[node name="ReturnButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 30.0
+offset_right = 77.0
+offset_bottom = 70.0
+text = "Return"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(1400, 700)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -700.0
+offset_top = -760.0
+offset_right = 700.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="StoryTabContainer" type="VBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(1400, 700)
+layout_mode = 2
+
+[node name="AddStory" type="PanelContainer" parent="ScrollContainer/StoryTabContainer"]
+layout_mode = 2
+theme = SubResource("Theme_ioo17")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/StoryTabContainer/AddStory"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="AddStoryButton" type="Button" parent="ScrollContainer/StoryTabContainer/AddStory/HBoxContainer"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_jpjlo")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_d8g8u")
+theme_override_styles/hover = SubResource("StyleBoxFlat_yld61")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_0yhgh")
+theme_override_styles/focus = SubResource("StyleBoxFlat_521tm")
+text = "Add Story"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+initial_position = 2
+size = Vector2i(900, 500)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+
+[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="ScrollContainer/StoryTabContainer/AddStory/HBoxContainer/AddStoryButton" to="." method="_on_add_story_button_pressed"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
