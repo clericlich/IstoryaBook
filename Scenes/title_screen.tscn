@@ -9,6 +9,9 @@ font = ExtResource("2_af64v")
 font_size = 160
 outline_size = 40
 outline_color = Color(0, 0, 0, 1)
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(20, 10)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k47ny"]
 content_margin_left = 30.0

@@ -1,10 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://btqxjl530km0s"]
+[gd_scene load_steps=5 format=3 uid="uid://q8n403rd4vil"]
 
-[ext_resource type="Script" path="res://Scenes/PlayStory/text_box.gd" id="1_2stdj"]
-[ext_resource type="FontFile" uid="uid://ch1yfvb3bpbgv" path="res://Assets/Font/Sedgwick_Ave/SedgwickAve-Regular.ttf" id="2_lh7f6"]
+[ext_resource type="Script" path="res://Scenes/PlayStory/choice_box.gd" id="1_okpwe"]
+[ext_resource type="FontFile" uid="uid://ch1yfvb3bpbgv" path="res://Assets/Font/Sedgwick_Ave/SedgwickAve-Regular.ttf" id="1_xs6na"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_a0loq"]
-font = ExtResource("2_lh7f6")
+font = ExtResource("1_xs6na")
 font_size = 60
 outline_size = 18
 outline_color = Color(0, 0, 0, 1)
@@ -14,13 +14,13 @@ font_size = 30
 outline_size = 18
 outline_color = Color(0, 0, 0, 1)
 
-[node name="TextBox" type="VBoxContainer" node_paths=PackedStringArray("character_label", "text_label", "continue_button")]
+[node name="ChoiceBox" type="VBoxContainer" node_paths=PackedStringArray("character_label", "text_label", "choices_container")]
 custom_minimum_size = Vector2(1500, 0)
 theme_override_constants/separation = 15
-script = ExtResource("1_2stdj")
+script = ExtResource("1_okpwe")
 character_label = NodePath("VBoxContainer/CharacterLabel")
 text_label = NodePath("VBoxContainer/TextLabel")
-continue_button = NodePath("ContinueButton")
+choices_container = NodePath("VBoxContainer/ChoicesContainer")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -41,10 +41,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="ContinueButton" type="Button" parent="."]
+[node name="ChoicesContainer" type="VBoxContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 24
-text = "Continue"
-
-[connection signal="pressed" from="ContinueButton" to="." method="_on_continue_button_pressed"]

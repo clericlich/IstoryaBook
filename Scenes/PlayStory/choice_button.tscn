@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjfuqtlofct4m"]
+
+[ext_resource type="Script" path="res://Scenes/PlayStory/choice_button.gd" id="1_pi8u4"]
+
+[node name="ChoiceButton" type="Button"]
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 24
+text = "Choice"
+script = ExtResource("1_pi8u4")
