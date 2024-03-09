@@ -17,6 +17,7 @@ func _ready():
 		story_tab.set_story_data(story_tab_content)
 		story_tab.set_story_title(story_tab_content["storyBoxTitle"])
 
+	clear_files()
 	load_settings()
 	load_files()
 
@@ -38,7 +39,8 @@ func _on_file_dialog_file_selected(path, loaded = false):
 		parse_content = json.data
 
 	if parse_content.has("storyBoxTitle"):
-		StoryHandler.store_story_cache(parse_content)
+		if loaded == false:
+			StoryHandler.store_story_cache(parse_content)
 
 		var story_tab = story_tab_scene.instantiate()
 		story_tab_container.add_child(story_tab)
@@ -57,11 +59,15 @@ func _on_story_folder_button_pressed():
 func _on_story_folder_file_dialog_dir_selected(dir):
 	story_folder_button.text = dir
 	GlobalSettings.settings["StoryFolder"] = dir
+	
+	clear_files()
+	load_files()
 
+
+func clear_files():
 	for node in get_tree().get_nodes_in_group("loaded_story_tabs"):
 		node.queue_free()
-	load_files()
-	
+
 
 func save_settings():
 	var settings = GlobalSettings.settings
