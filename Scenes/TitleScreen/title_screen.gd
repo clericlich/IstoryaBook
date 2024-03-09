@@ -17,3 +17,8 @@ func _on_exit_button_pressed():
 func _on_play_story_button_pressed():
 	ScenesHandler.switch_scene("res://Scenes/select_story.tscn")
 	pass # Replace with function body.
+
+
+func _on_settings_pressed():
+	ScenesHandler.switch_scene("res://Scenes/settings.tscn")
+	pass # Replace with function body.

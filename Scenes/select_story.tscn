@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bbiwdmydosung"]
+[gd_scene load_steps=12 format=3 uid="uid://bbiwdmydosung"]
 
 [ext_resource type="Script" path="res://Scenes/SelectStory/select_story.gd" id="1_oabel"]
 [ext_resource type="FontFile" uid="uid://ch1yfvb3bpbgv" path="res://Assets/Font/Sedgwick_Ave/SedgwickAve-Regular.ttf" id="1_us1jg"]
@@ -61,7 +61,10 @@ corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 
-[node name="SelectStory" type="Control" node_paths=PackedStringArray("file_dialog", "story_tab_container")]
+[sub_resource type="LabelSettings" id="LabelSettings_sdb87"]
+font_size = 28
+
+[node name="SelectStory" type="Control" node_paths=PackedStringArray("file_dialog", "story_folder_file_dialog", "story_folder_button", "story_tab_container", "story_box_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -70,7 +73,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_oabel")
 file_dialog = NodePath("FileDialog")
+story_folder_file_dialog = NodePath("StoryFolderFileDialog")
+story_folder_button = NodePath("HBoxContainer/StoryFolderButton")
 story_tab_container = NodePath("ScrollContainer/StoryTabContainer")
+story_box_button = NodePath("HBoxContainer/StoryFolderButton")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -114,7 +120,7 @@ offset_bottom = 70.0
 text = "Return"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-custom_minimum_size = Vector2(1400, 700)
+custom_minimum_size = Vector2(1400, 600)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -122,15 +128,16 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -700.0
-offset_top = -760.0
+offset_top = -700.0
 offset_right = 700.0
-offset_bottom = -60.0
+offset_bottom = -100.0
 grow_horizontal = 2
 grow_vertical = 0
 
 [node name="StoryTabContainer" type="VBoxContainer" parent="ScrollContainer"]
-custom_minimum_size = Vector2(1400, 700)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="AddStory" type="PanelContainer" parent="ScrollContainer/StoryTabContainer"]
 layout_mode = 2
@@ -152,6 +159,23 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_0yhgh")
 theme_override_styles/focus = SubResource("StyleBoxFlat_521tm")
 text = "Add Story"
 
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 130.0
+offset_right = 140.0
+offset_bottom = 170.0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "Story Folder Location:"
+label_settings = SubResource("LabelSettings_sdb87")
+
+[node name="StoryFolderButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Set Story Folder"
+
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"
 initial_position = 2
@@ -160,6 +184,17 @@ ok_button_text = "Open"
 file_mode = 0
 access = 2
 
+[node name="StoryFolderFileDialog" type="FileDialog" parent="."]
+title = "Open a Directory"
+initial_position = 1
+size = Vector2i(900, 500)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="ScrollContainer/StoryTabContainer/AddStory/HBoxContainer/AddStoryButton" to="." method="_on_add_story_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/StoryFolderButton" to="." method="_on_story_folder_button_pressed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="dir_selected" from="StoryFolderFileDialog" to="." method="_on_story_folder_file_dialog_dir_selected"]

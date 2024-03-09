@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ddbgrc6qpljj3"]
+[gd_scene load_steps=15 format=3 uid="uid://ddbgrc6qpljj3"]
 
 [ext_resource type="Script" path="res://Scenes/PlayStory/play_story.gd" id="1_28kaq"]
 [ext_resource type="Texture2D" uid="uid://dqaswtxv3m120" path="res://Assets/Images/round_settings_white_24dp.png" id="1_vclry"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://d1ai1uk4gi1v2" path="res://Assets/Images/round_folder_white_24dp.png" id="2_0br8r"]
 [ext_resource type="Texture2D" uid="uid://dd584d8tqqd5h" path="res://Assets/Images/round_group_white_24dp.png" id="2_t42rk"]
 [ext_resource type="FontFile" uid="uid://ch1yfvb3bpbgv" path="res://Assets/Font/Sedgwick_Ave/SedgwickAve-Regular.ttf" id="6_53gjj"]
+[ext_resource type="Script" path="res://Scenes/PlayStory/characters_panel.gd" id="7_xiik2"]
+[ext_resource type="Script" path="res://Scenes/PlayStory/history_panel.gd" id="8_u35x3"]
+[ext_resource type="Script" path="res://Scenes/PlayStory/exit_prompt.gd" id="9_5fcup"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_71k7s"]
 font = ExtResource("6_53gjj")
@@ -16,7 +19,47 @@ shadow_size = 10
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(5, 5)
 
-[node name="play_story" type="Control" node_paths=PackedStringArray("story_title", "text_area", "scroll_container")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3de53"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_oh3qr"]
+font_size = 42
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssmji"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_ky0jq"]
+font_size = 28
+
+[node name="play_story" type="Control" node_paths=PackedStringArray("story_title", "text_area", "scroll_container", "characters_panel", "history_panel", "return_prompt")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,6 +70,9 @@ script = ExtResource("1_28kaq")
 story_title = NodePath("StoryTitle")
 text_area = NodePath("ScrollContainer/TextArea")
 scroll_container = NodePath("ScrollContainer")
+characters_panel = NodePath("CharactersPanel")
+history_panel = NodePath("HistoryPanel")
+return_prompt = NodePath("ExitPrompt")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -86,6 +132,7 @@ icon = ExtResource("2_t42rk")
 icon_alignment = 1
 
 [node name="SettingsButton" type="Button" parent="HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 icon = ExtResource("1_vclry")
@@ -126,3 +173,169 @@ offset_bottom = 111.0
 grow_horizontal = 2
 text = "StoryTitle"
 label_settings = SubResource("LabelSettings_71k7s")
+
+[node name="CharactersPanel" type="PanelContainer" parent="." node_paths=PackedStringArray("characters_list")]
+visible = false
+custom_minimum_size = Vector2(1400, 700)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -700.0
+offset_top = -350.0
+offset_right = 700.0
+offset_bottom = 350.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3de53")
+script = ExtResource("7_xiik2")
+characters_list = NodePath("MarginContainer/ScrollContainer/VBoxContainer/CharactersList")
+
+[node name="MarginContainer" type="MarginContainer" parent="CharactersPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CharactersPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CharactersPanel/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CharactersPanel/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CharacterLabel" type="Label" parent="CharactersPanel/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Characters"
+label_settings = SubResource("LabelSettings_oh3qr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="CharactersPanel/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "X"
+
+[node name="CharactersList" type="GridContainer" parent="CharactersPanel/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = 50
+theme_override_constants/v_separation = 30
+columns = 3
+
+[node name="HistoryPanel" type="PanelContainer" parent="." node_paths=PackedStringArray("history_list")]
+visible = false
+custom_minimum_size = Vector2(1400, 700)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -700.0
+offset_top = -350.0
+offset_right = 700.0
+offset_bottom = 350.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3de53")
+script = ExtResource("8_u35x3")
+history_list = NodePath("MarginContainer/ScrollContainer/VBoxContainer/HistoryList")
+
+[node name="MarginContainer" type="MarginContainer" parent="HistoryPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HistoryPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HistoryPanel/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HistoryPanel/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HistoryLabel" type="Label" parent="HistoryPanel/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "History"
+label_settings = SubResource("LabelSettings_oh3qr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="HistoryPanel/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "X"
+
+[node name="HistoryList" type="VBoxContainer" parent="HistoryPanel/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ExitPrompt" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.5
+offset_top = -39.0
+offset_right = 152.5
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ssmji")
+script = ExtResource("9_5fcup")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ExitPrompt"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ExitPrompt/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ExitPrompt/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Return to Title and Lose all Progress?"
+label_settings = SubResource("LabelSettings_ky0jq")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ExitPrompt/VBoxContainer"]
+layout_mode = 2
+
+[node name="YesButton" type="Button" parent="ExitPrompt/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 28
+text = "Yes"
+
+[node name="NoButton" type="Button" parent="ExitPrompt/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 28
+text = "No"
+
+[connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/FolderButton" to="." method="_on_folder_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/CharactersButton" to="." method="_on_characters_button_pressed"]
+[connection signal="pressed" from="CharactersPanel/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/CloseButton" to="CharactersPanel" method="_on_close_button_pressed"]
+[connection signal="pressed" from="HistoryPanel/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/CloseButton" to="HistoryPanel" method="_on_close_button_pressed"]
+[connection signal="pressed" from="ExitPrompt/VBoxContainer/HBoxContainer2/YesButton" to="ExitPrompt" method="_on_yes_button_pressed"]
+[connection signal="pressed" from="ExitPrompt/VBoxContainer/HBoxContainer2/NoButton" to="ExitPrompt" method="_on_no_button_pressed"]
