@@ -15,7 +15,9 @@ func _process(delta):
 func get_choice_text():
 	return choice_input.text
 
+func set_choice_text(text):
+	choice_input.text = text
+
 func _on_delete_button_pressed():
 	choice_delete.emit()
 	#self.queue_free()
-

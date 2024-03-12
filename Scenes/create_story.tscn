@@ -63,7 +63,7 @@ corner_radius_bottom_left = 20
 [sub_resource type="Theme" id="Theme_ou5rp"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_pc8cf")
 
-[node name="CreateStory" type="Control" node_paths=PackedStringArray("story_graph", "characters_tab", "title_input", "file_dialog")]
+[node name="CreateStory" type="Control" node_paths=PackedStringArray("story_graph", "characters_tab", "title_input", "file_dialog", "save_dialog", "load_dialog")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -75,6 +75,8 @@ story_graph = NodePath("TabContainer/Story/StoryGraph")
 characters_tab = NodePath("TabContainer/Characters")
 title_input = NodePath("TitleInput")
 file_dialog = NodePath("FileDialog")
+save_dialog = NodePath("SaveDialog")
+load_dialog = NodePath("LoadDialog")
 
 [node name="Items" type="Control" parent="."]
 visible = false
@@ -443,6 +445,7 @@ offset_left = 1520.0
 offset_top = 20.0
 offset_right = 1581.0
 offset_bottom = 60.0
+theme = ExtResource("1_3fwi6")
 text = "Finish
 "
 
@@ -489,6 +492,45 @@ layout_mode = 2
 size_flags_horizontal = 6
 text = "No"
 
+[node name="SaveButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 339.0
+offset_top = 25.0
+offset_right = 442.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme = ExtResource("1_3fwi6")
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -341.0
+offset_top = 25.0
+offset_right = -238.0
+offset_bottom = 56.0
+grow_horizontal = 0
+theme = ExtResource("1_3fwi6")
+text = "Load"
+
+[node name="SaveDialog" type="FileDialog" parent="."]
+initial_position = 2
+size = Vector2i(900, 500)
+access = 2
+
+[node name="LoadDialog" type="FileDialog" parent="."]
+title = "Load a File"
+initial_position = 2
+size = Vector2i(900, 500)
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+
 [connection signal="pressed" from="Items/MarginContainer/ScrollContainer/GridContainer/AddItemButton" to="Items" method="_on_add_item_button_pressed"]
 [connection signal="pressed" from="Items/AddItemWindow/VBoxContainer/HBoxContainer/HideWindow" to="Items" method="_on_hide_window_pressed"]
 [connection signal="pressed" from="Items/AddItemWindow/VBoxContainer/FinishButton" to="Items" method="_on_finish_button_pressed"]
@@ -505,3 +547,7 @@ text = "No"
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="Finish Button" to="." method="_on_finish_button_pressed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
+[connection signal="pressed" from="SaveButton" to="." method="_on_save_button_pressed"]
+[connection signal="pressed" from="LoadButton" to="." method="_on_load_button_pressed"]
+[connection signal="file_selected" from="SaveDialog" to="." method="_on_save_dialog_file_selected"]
+[connection signal="file_selected" from="LoadDialog" to="." method="_on_load_dialog_file_selected"]

@@ -45,6 +45,7 @@ func update_characters_list(list):
 func update_resources_list(list):
 	#Background Menu
 	background_menu_popup.clear()
+	background_menu_popup.add_item("None")
 	for resource in list:
 		if image_extensions.has(resource.get_extension()):
 			background_menu_popup.add_item(resource.get_file())
@@ -59,6 +60,8 @@ func update_resources_list(list):
 	#Sound Menus
 	sound_menu_popup1.clear()
 	sound_menu_popup2.clear()
+	sound_menu_popup1.add_item("None")
+	sound_menu_popup2.add_item("None")
 	for resource in list:
 		if sound_extensions.has(resource.get_extension()):
 			sound_menu_popup1.add_item(resource.get_file())
@@ -103,3 +106,11 @@ func get_story_box_data():
 		"sound1": sound_menu_button1.text,
 		"sound2": sound_menu_button2.text
 	}
+
+func load_from_save(story_data):
+	self.name = story_data["storyBoxName"]
+	name_menu.text = story_data["character"]
+	dialog_input.text = story_data["dialog"]
+	background_menu_button.text = story_data["background"]
+	sound_menu_button1.text = story_data["sound1"]
+	sound_menu_button2.text = story_data["sound2"]

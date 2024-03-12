@@ -92,7 +92,7 @@ func set_saved_settings(settings_data):
 func load_files():
 	if GlobalSettings.settings.has("StoryFolder"):
 		var story_folder_dir = DirAccess.open(GlobalSettings.settings["StoryFolder"])
-		print(story_folder_dir)
+		#print(story_folder_dir)
 		for file in story_folder_dir.get_files():
 			if file.get_extension() == "json":
 				_on_file_dialog_file_selected(GlobalSettings.settings["StoryFolder"]+"/"+file, true)

@@ -25,7 +25,6 @@ func _ready():
 	background_menu_popup.id_pressed.connect(image_resource_selected)
 	sound_menu_popup1.id_pressed.connect(sound_resource1_selected)
 	sound_menu_popup2.id_pressed.connect(sound_resource2_selected)
-	_on_add_choice_button_pressed()
 
 
 func _on_delete_button_pressed():
@@ -48,6 +47,7 @@ func update_characters_list(list):
 func update_resources_list(list):
 	#Background Menu
 	background_menu_popup.clear()
+	background_menu_popup.add_item("None")
 	for resource in list:
 		if image_extensions.has(resource.get_extension()):
 			background_menu_popup.add_item(resource.get_file())
@@ -62,6 +62,8 @@ func update_resources_list(list):
 	#Sound Menus
 	sound_menu_popup1.clear()
 	sound_menu_popup2.clear()
+	sound_menu_popup1.add_item("None")
+	sound_menu_popup2.add_item("None")
 	for resource in list:
 		if sound_extensions.has(resource.get_extension()):
 			sound_menu_popup1.add_item(resource.get_file())
@@ -118,3 +120,18 @@ func get_story_box_data():
 		"sound2": sound_menu_button2.text,
 		"choices": choices
 	}
+
+func load_from_save(story_data):
+	self.name = story_data["storyBoxName"]
+	name_menu.text = story_data["character"]
+	dialog_input.text = story_data["dialog"]
+	background_menu_button.text = story_data["background"]
+	sound_menu_button1.text = story_data["sound1"]
+	sound_menu_button2.text = story_data["sound2"]
+
+	for choice in story_data["choices"]:
+		var new_choice = choice_scene.instantiate()
+		self.add_child(new_choice)
+		self.set_slot_enabled_right(new_choice.get_index(), true)
+		new_choice.choice_delete.connect(func(): choice_delete.emit(self, new_choice, new_choice.get_index() - 7))
+		new_choice.set_choice_text(choice["choice"])

@@ -20,7 +20,7 @@ func _on_add_text_box_button_pressed():
 	new_text_box.position_offset.x = (scroll_offset.x + 170) / self.zoom
 	new_text_box.position_offset.y = (scroll_offset.y + 70) / self.zoom
 
-	self.add_child(new_text_box)
+	self.add_child(new_text_box, true)
 	new_text_box.request_delete.connect(delete_node)
 	new_text_box.update_characters_list(characters_list)
 	new_text_box.update_resources_list(resources_list)
@@ -30,7 +30,7 @@ func _on_add_choice_box_button_pressed():
 	new_choice_box.position_offset.x = (scroll_offset.x + 170) / self.zoom
 	new_choice_box.position_offset.y = (scroll_offset.y + 100) / self.zoom
 	
-	self.add_child(new_choice_box)
+	self.add_child(new_choice_box, true)
 	new_choice_box.request_delete.connect(delete_node)
 	new_choice_box.choice_delete.connect(choice_delete)
 	new_choice_box.update_characters_list(characters_list)
@@ -141,3 +141,46 @@ func find_in_connection_list(list, node_name):
 			filtered_list.push_back(connection)
 
 	return filtered_list
+
+func load_from_save(story_tree, positions, connections):
+	self.clear_connections()
+	for child in self.get_children():
+		if child.name != "StartNode":
+			self.remove_child(child)
+			child.queue_free()
+
+	for story_box in story_tree:
+		if story_box["storyBoxName"] == "StartNode":
+			continue
+		match story_box["type"]:
+			"text":
+				var new_text_box = text_box_scene.instantiate()
+				self.add_child(new_text_box, true)
+				new_text_box.request_delete.connect(delete_node)
+				new_text_box.update_characters_list(characters_list)
+				new_text_box.update_resources_list(resources_list)
+				new_text_box.load_from_save(story_box)
+			"choice":
+				var new_choice_box = choice_box_scene.instantiate()
+				self.add_child(new_choice_box, true)
+				new_choice_box.request_delete.connect(delete_node)
+				new_choice_box.choice_delete.connect(choice_delete)
+				new_choice_box.update_characters_list(characters_list)
+				new_choice_box.update_resources_list(resources_list)
+				new_choice_box.load_from_save(story_box)
+
+	for children in self.get_children():
+		print(children)
+
+	print("")
+	for story_box_position in positions:
+		var story_box = self.get_node(story_box_position["storyBoxName"])
+		story_box.position_offset.x = story_box_position["position_x"]
+		story_box.position_offset.y = story_box_position["position_y"]
+		print(story_box)
+		print(story_box.position_offset.x)
+		print(story_box.position_offset.y)
+		print("---")
+
+	for connection in connections:
+		connect_node(connection["from_node"],connection["from_port"],connection["to_node"],connection["to_port"])
