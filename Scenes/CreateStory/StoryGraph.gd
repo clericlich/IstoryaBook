@@ -1,14 +1,17 @@
 extends GraphEdit
 
 @export var characters_tab:Node
+@export var resources_tab:Node
 
 var text_box_scene = preload("res://Scenes/CreateStory/text_box.tscn")
 var choice_box_scene = preload("res://Scenes/CreateStory/choice_box.tscn")
 
 var characters_list = []
+var resources_list = []
 
 func _ready():
 	characters_tab.character_list_changed.connect(character_list_updates)
+	resources_tab.resource_list_changed.connect(resource_list_updates)
 	pass # Replace with function body.
 
 
@@ -20,6 +23,7 @@ func _on_add_text_box_button_pressed():
 	self.add_child(new_text_box)
 	new_text_box.request_delete.connect(delete_node)
 	new_text_box.update_characters_list(characters_list)
+	new_text_box.update_resources_list(resources_list)
 
 func _on_add_choice_box_button_pressed():
 	var new_choice_box = choice_box_scene.instantiate()
@@ -30,7 +34,7 @@ func _on_add_choice_box_button_pressed():
 	new_choice_box.request_delete.connect(delete_node)
 	new_choice_box.choice_delete.connect(choice_delete)
 	new_choice_box.update_characters_list(characters_list)
-	pass # Replace with function body.
+	new_choice_box.update_resources_list(resources_list)
 
 
 func _on_connection_request(from_node, from_port, to_node, to_port):
@@ -76,6 +80,13 @@ func character_list_updates():
 	if ScenesHandler.switching_scene == false:
 		for storybox in get_tree().get_nodes_in_group("storyboxes"):
 			storybox.update_characters_list(characters_list)
+
+func resource_list_updates():
+	resources_list = resources_tab.get_all_resources()
+	
+	if ScenesHandler.switching_scene == false:
+		for storybox in get_tree().get_nodes_in_group("storyboxes"):
+			storybox.update_resources_list(resources_list)
 
 
 func get_story_data():

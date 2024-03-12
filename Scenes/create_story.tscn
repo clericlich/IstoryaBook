@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cx6a6vwufvpga"]
+[gd_scene load_steps=17 format=3 uid="uid://cx6a6vwufvpga"]
 
 [ext_resource type="Theme" uid="uid://sx8r7eylidoh" path="res://Themes/Classic311/Classic311.tres" id="1_3fwi6"]
 [ext_resource type="Script" path="res://Scenes/CreateStory/create_story.gd" id="1_xyfu2"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://by5f3g50o62f3" path="res://Assets/Font/Roboto/Roboto-Bold.ttf" id="3_pgjgw"]
 [ext_resource type="Script" path="res://Scenes/CreateStory/Characters.gd" id="4_uoucb"]
 [ext_resource type="Script" path="res://Scenes/CreateStory/Items.gd" id="6_1nu8t"]
+[ext_resource type="Script" path="res://Scenes/CreateStory/resources.gd" id="7_lgclw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kno4s"]
 bg_color = Color(0.211765, 0.211765, 0.211765, 1)
@@ -192,7 +193,7 @@ tab_alignment = 1
 [node name="Story" type="Control" parent="TabContainer"]
 layout_mode = 2
 
-[node name="StoryGraph" type="GraphEdit" parent="TabContainer/Story" node_paths=PackedStringArray("characters_tab")]
+[node name="StoryGraph" type="GraphEdit" parent="TabContainer/Story" node_paths=PackedStringArray("characters_tab", "resources_tab")]
 layout_mode = 2
 offset_right = 1600.0
 offset_bottom = 819.0
@@ -200,6 +201,7 @@ show_zoom_label = true
 show_arrange_button = false
 script = ExtResource("1_yg3o8")
 characters_tab = NodePath("../../Characters")
+resources_tab = NodePath("../../Resources")
 
 [node name="StartNode" type="GraphNode" parent="TabContainer/Story/StoryGraph"]
 layout_mode = 0
@@ -364,6 +366,61 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Finish"
 
+[node name="Resources" type="Control" parent="TabContainer" node_paths=PackedStringArray("resource_file_dialog", "resource_folder_button", "resource_list")]
+visible = false
+layout_mode = 2
+script = ExtResource("7_lgclw")
+resource_file_dialog = NodePath("ResourceFileDialog")
+resource_folder_button = NodePath("HBoxContainer/ResourceFolderButton")
+resource_list = NodePath("MarginContainer/ResourceList")
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Resources"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ResourceList" type="ItemList" parent="TabContainer/Resources/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Resources"]
+custom_minimum_size = Vector2(1560, 0)
+layout_mode = 0
+offset_left = 20.0
+offset_top = 15.0
+offset_right = 268.0
+offset_bottom = 55.0
+
+[node name="Label" type="Label" parent="TabContainer/Resources/HBoxContainer"]
+layout_mode = 2
+text = "Set Resource Folder:"
+
+[node name="ResourceFolderButton" type="Button" parent="TabContainer/Resources/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "None."
+alignment = 0
+text_overrun_behavior = 3
+clip_text = true
+
+[node name="ReloadButton" type="Button" parent="TabContainer/Resources/HBoxContainer"]
+layout_mode = 2
+text = "RELOAD"
+
+[node name="ResourceFileDialog" type="FileDialog" parent="TabContainer/Resources"]
+title = "Open a Directory"
+initial_position = 2
+size = Vector2i(1400, 700)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
 [node name="TitleInput" type="LineEdit" parent="."]
 layout_mode = 0
 offset_left = 90.0
@@ -442,6 +499,9 @@ text = "No"
 [connection signal="pressed" from="TabContainer/Characters/MarginContainer/ScrollContainer/GridContainer/AddCharacterButton" to="TabContainer/Characters" method="_on_add_character_button_pressed"]
 [connection signal="pressed" from="TabContainer/Characters/AddCharacterWindow/VBoxContainer/HBoxContainer/HideWindow" to="TabContainer/Characters" method="_on_hide_window_pressed"]
 [connection signal="pressed" from="TabContainer/Characters/AddCharacterWindow/VBoxContainer/FinishButton" to="TabContainer/Characters" method="_on_finish_button_pressed"]
+[connection signal="pressed" from="TabContainer/Resources/HBoxContainer/ResourceFolderButton" to="TabContainer/Resources" method="_on_resource_folder_button_pressed"]
+[connection signal="pressed" from="TabContainer/Resources/HBoxContainer/ReloadButton" to="TabContainer/Resources" method="_on_reload_button_pressed"]
+[connection signal="dir_selected" from="TabContainer/Resources/ResourceFileDialog" to="TabContainer/Resources" method="_on_resource_file_dialog_dir_selected"]
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="Finish Button" to="." method="_on_finish_button_pressed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]

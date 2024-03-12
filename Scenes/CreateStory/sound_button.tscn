@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcomxqse222ko"]
+
+[ext_resource type="Script" path="res://Scenes/CreateStory/sound_button.gd" id="1_xmb4y"]
+
+[node name="SoundContainer" type="HBoxContainer" node_paths=PackedStringArray("sound_button")]
+script = ExtResource("1_xmb4y")
+sound_button = NodePath("MenuButton")
+
+[node name="MenuButton" type="MenuButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Set Sound"
+flat = false
+
+[node name="DeleteButton" type="Button" parent="."]
+layout_mode = 2
+text = "X"
+
+[connection signal="pressed" from="DeleteButton" to="." method="_on_delete_button_pressed"]

@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://bhules4vvoytk" path="res://Themes/GraphNodeTheme.tres" id="1_r67yu"]
 [ext_resource type="Script" path="res://Scenes/CreateStory/ChoiceBox.gd" id="2_rvmjr"]
 
-[node name="ChoiceBox" type="GraphNode"]
+[node name="ChoiceBox" type="GraphNode" node_paths=PackedStringArray("background_menu_button", "sound_menu_button1", "sound_menu_button2")]
 custom_minimum_size = Vector2(300, 0)
 offset_left = 363.0
 offset_top = 143.0
@@ -57,7 +57,28 @@ slot/4/right_type = 0
 slot/4/right_color = Color(1, 1, 1, 1)
 slot/4/right_icon = null
 slot/4/draw_stylebox = true
+slot/5/left_enabled = false
+slot/5/left_type = 0
+slot/5/left_color = Color(1, 1, 1, 1)
+slot/5/left_icon = null
+slot/5/right_enabled = false
+slot/5/right_type = 0
+slot/5/right_color = Color(1, 1, 1, 1)
+slot/5/right_icon = null
+slot/5/draw_stylebox = true
+slot/6/left_enabled = false
+slot/6/left_type = 0
+slot/6/left_color = Color(1, 1, 1, 1)
+slot/6/left_icon = null
+slot/6/right_enabled = false
+slot/6/right_type = 0
+slot/6/right_color = Color(1, 1, 1, 1)
+slot/6/right_icon = null
+slot/6/draw_stylebox = true
 script = ExtResource("2_rvmjr")
+background_menu_button = NodePath("BackgroundImageContainer/SetBackgroundButton")
+sound_menu_button1 = NodePath("SoundButtonContainer/SoundButton1")
+sound_menu_button2 = NodePath("SoundButtonContainer/SoundButton2")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -83,6 +104,36 @@ text = " Dialog:"
 [node name="DialogInput" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+
+[node name="BackgroundImageContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BackgroundImageContainer"]
+layout_mode = 2
+text = "Background Image:"
+
+[node name="SetBackgroundButton" type="MenuButton" parent="BackgroundImageContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "None"
+flat = false
+
+[node name="SoundButtonContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="SoundButtonContainer"]
+layout_mode = 2
+text = "Sound:"
+
+[node name="SoundButton1" type="MenuButton" parent="SoundButtonContainer"]
+layout_mode = 2
+text = "None"
+flat = false
+
+[node name="SoundButton2" type="MenuButton" parent="SoundButtonContainer"]
+layout_mode = 2
+text = "None"
+flat = false
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
 layout_mode = 2

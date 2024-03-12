@@ -16,11 +16,13 @@ func _on_story_folder_file_dialog_dir_selected(dir):
 	story_folder_button.text = dir
 	GlobalSettings.settings["StoryFolder"] = dir
 
+
 func save_settings():
 	var settings = GlobalSettings.settings
 	var settings_file = FileAccess.open("user://settings.json", FileAccess.WRITE)
 	var json_string = JSON.stringify(settings, "\t")
 	settings_file.store_line(json_string)
+
 
 func load_settings():
 	if not FileAccess.file_exists("user://settings.json"):
@@ -32,6 +34,7 @@ func load_settings():
 	var parse_result = json.parse(json_string)
 	var settings_data = json.data
 	set_saved_settings(settings_data)
+
 
 func set_saved_settings(settings_data):
 	if settings_data.has("StoryFolder"):

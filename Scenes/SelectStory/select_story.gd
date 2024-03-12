@@ -45,12 +45,11 @@ func _on_file_dialog_file_selected(path, loaded = false):
 		var story_tab = story_tab_scene.instantiate()
 		story_tab_container.add_child(story_tab)
 		story_tab_container.move_child(story_tab, -2)
-		
+
 		if loaded == true:
 			story_tab.add_to_group("loaded_story_tabs")
 		story_tab.set_story_data(parse_content)
 		story_tab.set_story_title(parse_content["storyBoxTitle"])
-
 
 
 func _on_story_folder_button_pressed():
@@ -95,7 +94,8 @@ func load_files():
 		var story_folder_dir = DirAccess.open(GlobalSettings.settings["StoryFolder"])
 		print(story_folder_dir)
 		for file in story_folder_dir.get_files():
-			_on_file_dialog_file_selected(GlobalSettings.settings["StoryFolder"]+"/"+file, true)
+			if file.get_extension() == "json":
+				_on_file_dialog_file_selected(GlobalSettings.settings["StoryFolder"]+"/"+file, true)
 
 func _on_tree_exiting():
 	save_settings()
