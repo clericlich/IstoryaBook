@@ -5,6 +5,8 @@ extends Control
 @export var story_folder_button:Node
 @export var story_tab_container:Node
 @export var story_box_button:Node
+@export var resource_folder_file_dialog:Node
+@export var resource_folder_button:Node
 
 var story_tab_scene = preload("res://Scenes/SelectStory/story_tab.tscn")
 
@@ -48,6 +50,7 @@ func _on_file_dialog_file_selected(path, loaded = false):
 
 		if loaded == true:
 			story_tab.add_to_group("loaded_story_tabs")
+			story_tab.hide_delete_button()
 		story_tab.set_story_data(parse_content)
 		story_tab.set_story_title(parse_content["storyBoxTitle"])
 
@@ -58,10 +61,19 @@ func _on_story_folder_button_pressed():
 func _on_story_folder_file_dialog_dir_selected(dir):
 	story_folder_button.text = dir
 	GlobalSettings.settings["StoryFolder"] = dir
+	GlobalSettings.save_settings()
 	
 	clear_files()
 	load_files()
 
+
+func _on_resource_folder_button_pressed():
+	resource_folder_file_dialog.show()
+
+func _on_resource_folder_file_dialog_dir_selected(dir):
+	resource_folder_button.text = dir
+	GlobalSettings.settings["ResourceFolder"] = dir
+	GlobalSettings.save_settings()
 
 func clear_files():
 	for node in get_tree().get_nodes_in_group("loaded_story_tabs"):
@@ -88,6 +100,8 @@ func load_settings():
 func set_saved_settings(settings_data):
 	if settings_data.has("StoryFolder"):
 		story_folder_button.text = settings_data["StoryFolder"]
+	if settings_data.has("ResourceFolder"):
+		resource_folder_button.text = settings_data["ResourceFolder"]
 
 func load_files():
 	if GlobalSettings.settings.has("StoryFolder"):
@@ -98,4 +112,5 @@ func load_files():
 				_on_file_dialog_file_selected(GlobalSettings.settings["StoryFolder"]+"/"+file, true)
 
 func _on_tree_exiting():
-	save_settings()
+	#save_settings()
+	pass

@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://bieuduw5y5fr4"]
+[gd_scene load_steps=13 format=3 uid="uid://bieuduw5y5fr4"]
 
 [ext_resource type="Script" path="res://Scenes/TitleScreen/title_screen.gd" id="1_dtjfj"]
 [ext_resource type="Texture2D" uid="uid://00dmpi21ym7" path="res://Assets/Images/Sorbetero-pixelated-256px.png" id="1_y5qui"]
 [ext_resource type="FontFile" uid="uid://ch1yfvb3bpbgv" path="res://Assets/Font/Sedgwick_Ave/SedgwickAve-Regular.ttf" id="2_af64v"]
+[ext_resource type="FontFile" uid="uid://by5f3g50o62f3" path="res://Assets/Font/Roboto/Roboto-Bold.ttf" id="4_chx41"]
 [ext_resource type="Texture2D" uid="uid://cqvhe3hrjfhoh" path="res://Assets/Images/round_info_white_48dp.png" id="4_hktxx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_pf1ij"]
@@ -40,7 +41,7 @@ corner_radius_bottom_left = 20
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 10
 Button/font_sizes/font_size = 48
-Button/fonts/font = ExtResource("2_af64v")
+Button/fonts/font = ExtResource("4_chx41")
 Button/styles/hover = SubResource("StyleBoxFlat_k47ny")
 Button/styles/normal = SubResource("StyleBoxFlat_1rqbj")
 Button/styles/pressed = SubResource("StyleBoxFlat_1rqbj")
@@ -151,6 +152,7 @@ flat = true
 expand_icon = true
 
 [node name="InformationPanel" type="PanelContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(500, 700)
 layout_mode = 1
 anchors_preset = 6

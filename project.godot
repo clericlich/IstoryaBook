@@ -26,8 +26,7 @@ AudioImporter="*res://Scenes/autoloads/audio_importer.gd"
 
 window/size/viewport_width=1600
 window/size/viewport_height=900
-window/stretch/mode="viewport"
-window/stretch/scale_mode="integer"
+window/stretch/mode="canvas_items"
 
 [rendering]
 

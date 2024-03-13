@@ -440,11 +440,15 @@ offset_bottom = 61.0
 text = "Return"
 
 [node name="Finish Button" type="Button" parent="."]
-layout_mode = 0
-offset_left = 1520.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -81.0
 offset_top = 20.0
-offset_right = 1581.0
+offset_right = -20.0
 offset_bottom = 60.0
+grow_horizontal = 0
 theme = ExtResource("1_3fwi6")
 text = "Finish
 "
@@ -494,14 +498,14 @@ text = "No"
 
 [node name="SaveButton" type="Button" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 339.0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -343.0
 offset_top = 25.0
-offset_right = 442.0
+offset_right = -240.0
 offset_bottom = 56.0
-grow_horizontal = 2
+grow_horizontal = 0
 theme = ExtResource("1_3fwi6")
 text = "Save"
 
@@ -510,9 +514,9 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -341.0
+offset_left = -220.0
 offset_top = 25.0
-offset_right = -238.0
+offset_right = -117.0
 offset_bottom = 56.0
 grow_horizontal = 0
 theme = ExtResource("1_3fwi6")
@@ -524,7 +528,7 @@ size = Vector2i(900, 500)
 access = 2
 
 [node name="LoadDialog" type="FileDialog" parent="."]
-title = "Load a File"
+title = "Open a File"
 initial_position = 2
 size = Vector2i(900, 500)
 ok_button_text = "Open"

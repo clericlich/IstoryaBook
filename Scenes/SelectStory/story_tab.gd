@@ -1,6 +1,7 @@
 extends PanelContainer
 
 @export var story_title_label:Node
+@export var delete_button:Node
 
 var story_data
 
@@ -22,3 +23,6 @@ func _on_delete_button_pressed():
 func _on_play_story_button_pressed():
 	StoryHandler.set_story_data(story_data)
 	ScenesHandler.switch_scene("res://Scenes/play_story.tscn")
+
+func hide_delete_button():
+	delete_button.hide()

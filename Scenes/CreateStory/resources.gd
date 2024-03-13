@@ -23,6 +23,7 @@ func _on_resource_folder_button_pressed():
 func _on_resource_file_dialog_dir_selected(dir):
 	resource_folder_button.text = dir
 	GlobalSettings.settings["ResourceFolder"] = dir
+	GlobalSettings.save_settings()
 
 	get_resources_paths()
 

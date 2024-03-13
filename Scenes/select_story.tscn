@@ -64,7 +64,7 @@ corner_radius_bottom_left = 50
 [sub_resource type="LabelSettings" id="LabelSettings_sdb87"]
 font_size = 28
 
-[node name="SelectStory" type="Control" node_paths=PackedStringArray("file_dialog", "story_folder_file_dialog", "story_folder_button", "story_tab_container", "story_box_button")]
+[node name="SelectStory" type="Control" node_paths=PackedStringArray("file_dialog", "story_folder_file_dialog", "story_folder_button", "story_tab_container", "story_box_button", "resource_folder_file_dialog", "resource_folder_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,6 +77,8 @@ story_folder_file_dialog = NodePath("StoryFolderFileDialog")
 story_folder_button = NodePath("HBoxContainer/StoryFolderButton")
 story_tab_container = NodePath("ScrollContainer/StoryTabContainer")
 story_box_button = NodePath("HBoxContainer/StoryFolderButton")
+resource_folder_file_dialog = NodePath("ResourceFolderFileDialog")
+resource_folder_button = NodePath("HBoxContainer2/ResourceFolderButton")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -120,7 +122,7 @@ offset_bottom = 70.0
 text = "Return"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-custom_minimum_size = Vector2(1400, 600)
+custom_minimum_size = Vector2(1400, 550)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -128,7 +130,7 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -700.0
-offset_top = -700.0
+offset_top = -650.0
 offset_right = 700.0
 offset_bottom = -100.0
 grow_horizontal = 2
@@ -163,8 +165,8 @@ text = "Add Story"
 layout_mode = 0
 offset_left = 100.0
 offset_top = 130.0
-offset_right = 140.0
-offset_bottom = 170.0
+offset_right = 587.0
+offset_bottom = 172.0
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2
@@ -175,6 +177,23 @@ label_settings = SubResource("LabelSettings_sdb87")
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Set Story Folder"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 180.0
+offset_right = 689.0
+offset_bottom = 222.0
+
+[node name="Label" type="Label" parent="HBoxContainer2"]
+layout_mode = 2
+text = "Resource Folder Location:"
+label_settings = SubResource("LabelSettings_sdb87")
+
+[node name="ResourceFolderButton" type="Button" parent="HBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Set Resource Folder"
 
 [node name="FileDialog" type="FileDialog" parent="."]
 title = "Open a File"
@@ -192,9 +211,19 @@ ok_button_text = "Select Current Folder"
 file_mode = 2
 access = 2
 
+[node name="ResourceFolderFileDialog" type="FileDialog" parent="."]
+title = "Open a Directory"
+initial_position = 1
+size = Vector2i(900, 500)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
 [connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="ScrollContainer/StoryTabContainer/AddStory/HBoxContainer/AddStoryButton" to="." method="_on_add_story_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/StoryFolderButton" to="." method="_on_story_folder_button_pressed"]
+[connection signal="pressed" from="HBoxContainer2/ResourceFolderButton" to="." method="_on_resource_folder_button_pressed"]
 [connection signal="file_selected" from="FileDialog" to="." method="_on_file_dialog_file_selected"]
 [connection signal="dir_selected" from="StoryFolderFileDialog" to="." method="_on_story_folder_file_dialog_dir_selected"]
+[connection signal="dir_selected" from="ResourceFolderFileDialog" to="." method="_on_resource_folder_file_dialog_dir_selected"]
