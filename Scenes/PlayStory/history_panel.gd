@@ -10,11 +10,17 @@ func _ready():
 
 func add_story_box(story_box, user_input = null):
 	var new_history_box = history_box_scene.instantiate()
+
 	if (story_box["type"] != "start") and (story_box["type"] != "end"):
 		new_history_box.set_character_name(story_box["character"])
 		new_history_box.set_dialog(story_box["dialog"])
+
+		if story_box["type"] == "text":
+			new_history_box.hide_user_input()
+
 		if user_input != null and story_box["type"] == "choice":
-			new_history_box.set_choice(user_input["choice"])
+			new_history_box.set_user_input(user_input["choice"])
+
 		history_list.add_child(new_history_box)
 
 

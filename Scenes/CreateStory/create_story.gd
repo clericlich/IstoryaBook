@@ -6,6 +6,7 @@ extends Control
 @export var file_dialog:Node
 @export var save_dialog:Node
 @export var load_dialog:Node
+@export var lesson_info_tab:Node
 
 var story_data = {}
 var save_data = {}
@@ -27,9 +28,11 @@ func _on_finish_button_pressed():
 	story_data = {
 		"storyBoxTitle": story_title,
 		"storyTree": story_tree,
-		"characters": characters_list
+		"characters": characters_list,
+		"lessonInfo": {"lesson": lesson_info_tab.get_lesson(), "explanation": lesson_info_tab.get_explanation()}
 	}
 
+	file_dialog.set_current_file(story_title)
 	file_dialog.show()
 
 
@@ -65,9 +68,11 @@ func _on_save_button_pressed():
 		"storyTree": story_tree,
 		"characters": characters_list,
 		"connections":story_graph.get_connection_list(),
-		"positions":positions
+		"positions":positions,
+		"lessonInfo": {"lesson": lesson_info_tab.get_lesson(), "explanation": lesson_info_tab.get_explanation()}
 	}
 
+	save_dialog.set_current_file(story_title+"_save")
 	save_dialog.show()
 
 func _on_load_button_pressed():
@@ -75,7 +80,7 @@ func _on_load_button_pressed():
 
 
 func _on_save_dialog_file_selected(path):
-	var save_file = FileAccess.open(path+".json",FileAccess.WRITE)
+	var save_file = FileAccess.open(path.get_basename()+".json",FileAccess.WRITE)
 	var json_string = JSON.stringify(save_data)
 	save_file.store_line(json_string)
 	save_file.close()
@@ -91,3 +96,4 @@ func _on_load_dialog_file_selected(path):
 	title_input.text = save_data["storyBoxTitle"]
 	characters_tab.load_from_save(save_data["characters"])
 	story_graph.load_from_save(save_data["storyTree"], save_data["positions"], save_data["connections"])
+	lesson_info_tab.load_from_save(save_data["lessonInfo"])

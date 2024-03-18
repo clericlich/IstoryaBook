@@ -8,13 +8,13 @@ font_size = 32
 [sub_resource type="LabelSettings" id="LabelSettings_3i4nr"]
 font_size = 28
 
-[node name="HistoryBox" type="PanelContainer" node_paths=PackedStringArray("character_name", "dialog", "choice")]
+[node name="HistoryBox" type="PanelContainer" node_paths=PackedStringArray("character_name", "dialog", "user_input")]
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_rqxhy")
 character_name = NodePath("MarginContainer/VBoxContainer/CharacterName")
 dialog = NodePath("MarginContainer/VBoxContainer/Dialog")
-choice = NodePath("MarginContainer/VBoxContainer/ChoiceButton")
+user_input = NodePath("MarginContainer/VBoxContainer/UserInputButton")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -42,7 +42,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="ChoiceButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="UserInputButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 28
 disabled = true

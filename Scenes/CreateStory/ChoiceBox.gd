@@ -108,7 +108,10 @@ func get_story_box_data():
 
 	for child in get_children():
 		if child.has_method("get_choice_text"):
-			choices.push_back( {"choice":child.get_choice_text(), "port":child.get_index() - 7} )
+			if str(child.get_choice_points()) == "":
+				choices.push_back( {"choice":child.get_choice_text(),"points": 0 ,"port":child.get_index() - 7} )
+			else:
+				choices.push_back( {"choice":child.get_choice_text(),"points": child.get_choice_points() ,"port":child.get_index() - 7} )
 
 	return {
 		"storyBoxName": name,

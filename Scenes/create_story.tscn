@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cx6a6vwufvpga"]
+[gd_scene load_steps=18 format=3 uid="uid://cx6a6vwufvpga"]
 
 [ext_resource type="Theme" uid="uid://sx8r7eylidoh" path="res://Themes/Classic311/Classic311.tres" id="1_3fwi6"]
 [ext_resource type="Script" path="res://Scenes/CreateStory/create_story.gd" id="1_xyfu2"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://by5f3g50o62f3" path="res://Assets/Font/Roboto/Roboto-Bold.ttf" id="3_pgjgw"]
 [ext_resource type="Script" path="res://Scenes/CreateStory/Characters.gd" id="4_uoucb"]
 [ext_resource type="Script" path="res://Scenes/CreateStory/Items.gd" id="6_1nu8t"]
+[ext_resource type="Script" path="res://Scenes/CreateStory/lesson_info.gd" id="6_clvqu"]
 [ext_resource type="Script" path="res://Scenes/CreateStory/resources.gd" id="7_lgclw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kno4s"]
@@ -63,7 +64,7 @@ corner_radius_bottom_left = 20
 [sub_resource type="Theme" id="Theme_ou5rp"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_pc8cf")
 
-[node name="CreateStory" type="Control" node_paths=PackedStringArray("story_graph", "characters_tab", "title_input", "file_dialog", "save_dialog", "load_dialog")]
+[node name="CreateStory" type="Control" node_paths=PackedStringArray("story_graph", "characters_tab", "title_input", "file_dialog", "save_dialog", "load_dialog", "lesson_info_tab")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -77,6 +78,7 @@ title_input = NodePath("TitleInput")
 file_dialog = NodePath("FileDialog")
 save_dialog = NodePath("SaveDialog")
 load_dialog = NodePath("LoadDialog")
+lesson_info_tab = NodePath("TabContainer/LessonInfo")
 
 [node name="Items" type="Control" parent="."]
 visible = false
@@ -191,8 +193,10 @@ offset_top = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
+current_tab = 1
 
 [node name="Story" type="Control" parent="TabContainer"]
+visible = false
 layout_mode = 2
 
 [node name="StoryGraph" type="GraphEdit" parent="TabContainer/Story" node_paths=PackedStringArray("characters_tab", "resources_tab")]
@@ -272,6 +276,44 @@ offset_bottom = 212.0
 theme = ExtResource("1_3fwi6")
 text = "+Roll Box"
 alignment = 0
+
+[node name="LessonInfo" type="Control" parent="TabContainer" node_paths=PackedStringArray("lesson_line_edit", "explanation_text_edit")]
+layout_mode = 2
+script = ExtResource("6_clvqu")
+lesson_line_edit = NodePath("MarginContainer/VBoxContainer/LessonLineEdit")
+explanation_text_edit = NodePath("MarginContainer/VBoxContainer/ExplanationTextEdit")
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/LessonInfo"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/LessonInfo/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/LessonInfo/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lesson to Learn:"
+
+[node name="LessonLineEdit" type="LineEdit" parent="TabContainer/LessonInfo/MarginContainer/VBoxContainer"]
+layout_mode = 2
+placeholder_text = "Type Here."
+
+[node name="Label2" type="Label" parent="TabContainer/LessonInfo/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Explanation for Players:"
+
+[node name="ExplanationTextEdit" type="TextEdit" parent="TabContainer/LessonInfo/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+placeholder_text = "Type Here."
 
 [node name="Characters" type="Control" parent="TabContainer"]
 visible = false
@@ -427,9 +469,9 @@ access = 2
 layout_mode = 0
 offset_left = 90.0
 offset_top = 19.0
-offset_right = 654.0
+offset_right = 600.0
 offset_bottom = 64.0
-placeholder_text = "Title Here."
+placeholder_text = "Type Story Title Here."
 
 [node name="ReturnButton" type="Button" parent="."]
 layout_mode = 0

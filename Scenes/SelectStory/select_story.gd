@@ -62,7 +62,7 @@ func _on_story_folder_file_dialog_dir_selected(dir):
 	story_folder_button.text = dir
 	GlobalSettings.settings["StoryFolder"] = dir
 	GlobalSettings.save_settings()
-	
+
 	clear_files()
 	load_files()
 

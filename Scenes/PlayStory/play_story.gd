@@ -32,7 +32,7 @@ func _ready():
 func play_story_box(story_box):
 	audio_stream_player1.stop()
 	audio_stream_player2.stop()
-	
+
 	match story_box["type"]:
 		"start":
 			var new_text_box = text_box_scene.instantiate()
@@ -55,14 +55,18 @@ func play_story_box(story_box):
 			new_text_box.continue_pressed.connect(func(): go_to_next_story_box(story_box))
 			new_text_box.set_text(story_box["dialog"])
 			new_text_box.set_character(story_box["character"])
+			if story_box["character"] == "Choose Character":
+				new_text_box.set_character("")
 			text_area.add_child(new_text_box)
-			
+
 			play_resources(story_box)
 
 		"choice":
 			var new_choice_box = choice_box_scene.instantiate()
 			new_choice_box.set_text(story_box["dialog"])
 			new_choice_box.set_character(story_box["character"])
+			if story_box["character"] == "Choose Character":
+				new_choice_box.set_character("")
 			new_choice_box.set_choices(story_box["choices"])
 			new_choice_box.choice_pressed.connect(func(choice): go_to_next_story_box(story_box, choice))
 			text_area.add_child(new_choice_box)
@@ -81,6 +85,7 @@ func play_resources(story_box):
 	if story_box["sound1"] != "None":
 		var audio_loader = AudioLoader.new()
 		audio_stream_player1.stream = audio_loader.loadfile(GlobalSettings.settings["ResourceFolder"]+"/"+story_box["sound1"])
+		audio_stream_player1.stream.set_loop(false)
 		audio_stream_player1.volume_db = 1
 		audio_stream_player1.pitch_scale = 1
 		audio_stream_player1.play()
@@ -88,6 +93,7 @@ func play_resources(story_box):
 	if story_box["sound2"] != "None":
 		var audio_loader = AudioLoader.new()
 		audio_stream_player2.stream = audio_loader.loadfile(GlobalSettings.settings["ResourceFolder"]+"/"+story_box["sound2"])
+		audio_stream_player2.stream.set_loop(false)
 		audio_stream_player2.volume_db = 1
 		audio_stream_player2.pitch_scale = 1
 		audio_stream_player2.play()
@@ -106,39 +112,42 @@ func go_to_next_story_box(curr, user_input = null):
 		box.queue_free()
 
 	if curr["type"] == "end":
-		ScenesHandler.switch_scene("res://Scenes/title_screen.tscn")
+		ScenesHandler.switch_scene("res://Scenes/synthesis.tscn")
+
 	if user_input != null:
 		if not user_input.has("next"):
+			history_panel.add_story_box(curr, user_input)
 			play_story_box(end_box)
 			return
 	else:
 		if not curr.has("next"):
+			history_panel.add_story_box(curr)
 			play_story_box(end_box)
 			return
 
-
 	match curr["type"]:
 		"start":
+			#history_panel.add_story_box(curr)
+			
 			for story_box in story_tree:
 				if story_box["storyBoxName"] == curr["next"]:
 					current_story_box = story_box
 					play_story_box(current_story_box)
-					
-					history_panel.add_story_box(curr)
 		"text":
+			history_panel.add_story_box(curr)
+
 			for story_box in story_tree:
 				if story_box["storyBoxName"] == curr["next"]:
 					current_story_box = story_box
 					play_story_box(current_story_box)
-					
-					history_panel.add_story_box(curr)
 		"choice":
+			history_panel.add_story_box(curr, user_input)
+			StoryHandler.store_user_input(user_input)
+			
 			for story_box in story_tree:
 				if story_box["storyBoxName"] == user_input["next"]:
 					current_story_box = story_box
 					play_story_box(current_story_box)
-					
-					history_panel.add_story_box(curr, user_input)
 
 
 func _on_folder_button_pressed():

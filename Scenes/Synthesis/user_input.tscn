@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqbxqt8yprohh"]
+
+[ext_resource type="Script" path="res://Scenes/Synthesis/user_input.gd" id="1_4ivl2"]
+[ext_resource type="FontFile" uid="uid://pmtb2xa4u2sn" path="res://Assets/Font/Roboto/Roboto-Regular.ttf" id="2_g6n1n"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_02qfb"]
+font = ExtResource("2_g6n1n")
+font_size = 24
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[node name="UserInput" type="HBoxContainer" node_paths=PackedStringArray("choice_text", "points_value")]
+script = ExtResource("1_4ivl2")
+choice_text = NodePath("ChoiceText")
+points_value = NodePath("PointsValue")
+
+[node name="ChoiceText" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("2_g6n1n")
+theme_override_font_sizes/font_size = 24
+text = "Choice#1"
+editable = false
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "Points:"
+label_settings = SubResource("LabelSettings_02qfb")
+
+[node name="PointsValue" type="Label" parent="."]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_02qfb")
