@@ -96,7 +96,6 @@ func get_story_data():
 
 	for story_box in story_box_list:
 		if story_box.name == "StartNode":
-
 			for connection in connection_list:
 				if connection["from_node"] == "StartNode":
 					story_tree.push_back({
@@ -109,7 +108,7 @@ func get_story_data():
 
 		var story_box_data = story_box.get_story_box_data()
 		var filtered_list = find_in_connection_list(connection_list, story_box.name)
-		var can_add = is_story_box_connected(connection_list, story_box.name)
+		#var can_add = is_story_box_connected(connection_list, story_box.name)
 
 		if story_box_data["type"] == "text":
 			if filtered_list:
@@ -123,8 +122,9 @@ func get_story_data():
 						choice["next"] = connection["to_node"]
 
 
-		if can_add:
-			story_tree.push_back(story_box_data)
+		#if can_add:
+		#	story_tree.push_back(story_box_data)
+		story_tree.push_back(story_box_data)
 	return story_tree
 
 

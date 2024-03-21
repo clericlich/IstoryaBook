@@ -193,10 +193,8 @@ offset_top = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 tab_alignment = 1
-current_tab = 1
 
 [node name="Story" type="Control" parent="TabContainer"]
-visible = false
 layout_mode = 2
 
 [node name="StoryGraph" type="GraphEdit" parent="TabContainer/Story" node_paths=PackedStringArray("characters_tab", "resources_tab")]
@@ -278,6 +276,7 @@ text = "+Roll Box"
 alignment = 0
 
 [node name="LessonInfo" type="Control" parent="TabContainer" node_paths=PackedStringArray("lesson_line_edit", "explanation_text_edit")]
+visible = false
 layout_mode = 2
 script = ExtResource("6_clvqu")
 lesson_line_edit = NodePath("MarginContainer/VBoxContainer/LessonLineEdit")
@@ -492,7 +491,7 @@ offset_right = -20.0
 offset_bottom = 60.0
 grow_horizontal = 0
 theme = ExtResource("1_3fwi6")
-text = "Finish
+text = "Finalize
 "
 
 [node name="FileDialog" type="FileDialog" parent="."]

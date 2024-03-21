@@ -138,3 +138,4 @@ func load_from_save(story_data):
 		self.set_slot_enabled_right(new_choice.get_index(), true)
 		new_choice.choice_delete.connect(func(): choice_delete.emit(self, new_choice, new_choice.get_index() - 7))
 		new_choice.set_choice_text(choice["choice"])
+		new_choice.set_points_input(choice["points"])

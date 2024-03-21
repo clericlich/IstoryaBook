@@ -25,3 +25,7 @@ func _ready():
 	
 	final_score.text = str(value)
 
+
+func _on_done_button_pressed():
+	ScenesHandler.switch_scene("res://Scenes/title_screen.tscn")
+	pass # Replace with function body.

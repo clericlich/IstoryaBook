@@ -18,6 +18,9 @@ func get_choice_points():
 func set_choice_text(text):
 	choice_input.text = text
 
+func set_points_input(val):
+	points_input.text = str(val)
+
 func _on_delete_button_pressed():
 	choice_delete.emit()
 	#self.queue_free()
