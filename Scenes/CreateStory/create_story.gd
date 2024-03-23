@@ -37,7 +37,7 @@ func _on_finish_button_pressed():
 
 
 func _on_file_dialog_file_selected(path):
-	var save_story = FileAccess.open(path + ".json", FileAccess.WRITE)
+	var save_story = FileAccess.open(path.get_basename() + ".json", FileAccess.WRITE)
 	var json_string = JSON.stringify(story_data)
 	save_story.store_line(json_string)
 	ScenesHandler.switching_scene = true
