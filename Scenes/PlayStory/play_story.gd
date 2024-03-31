@@ -2,6 +2,7 @@ extends Control
 
 var text_box_scene = preload("res://Scenes/PlayStory/text_box.tscn")
 var choice_box_scene = preload("res://Scenes/PlayStory/choice_box.tscn")
+var keyword_box_scene = preload("res://Scenes/PlayStory/keyword_box.tscn")
 
 @export var story_title:Node
 @export var text_area:Node
@@ -73,6 +74,16 @@ func play_story_box(story_box):
 
 			play_resources(story_box)
 
+		"keyword":
+			var new_keyword_box = keyword_box_scene.instantiate()
+			new_keyword_box.set_text(story_box["dialog"])
+			new_keyword_box.set_character(story_box["character"])
+			if story_box["character"] == "Choose Character":
+				new_keyword_box.set_character("")
+			new_keyword_box.set_keywords(story_box["keywords"])
+			new_keyword_box.keyword_entered.connect(func(keyword): go_to_next_story_box(story_box, keyword))
+			text_area.add_child(new_keyword_box)
+
 func play_resources(story_box):
 	if story_box["background"] != "None":
 		var image = Image.load_from_file(GlobalSettings.settings["ResourceFolder"]+"/"+story_box["background"])
@@ -141,6 +152,15 @@ func go_to_next_story_box(curr, user_input = null):
 					current_story_box = story_box
 					play_story_box(current_story_box)
 		"choice":
+			history_panel.add_story_box(curr, user_input)
+			StoryHandler.store_user_input(user_input)
+			
+			for story_box in story_tree:
+				if story_box["storyBoxName"] == user_input["next"]:
+					current_story_box = story_box
+					play_story_box(current_story_box)
+
+		"keyword":
 			history_panel.add_story_box(curr, user_input)
 			StoryHandler.store_user_input(user_input)
 			

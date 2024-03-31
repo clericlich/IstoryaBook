@@ -253,15 +253,14 @@ theme = ExtResource("1_3fwi6")
 text = "+Choice Box"
 alignment = 0
 
-[node name="AddInputBoxButton" type="Button" parent="TabContainer/Story"]
-visible = false
+[node name="AddKeywordBoxButton" type="Button" parent="TabContainer/Story"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 141.0
 offset_right = 123.0
 offset_bottom = 172.0
 theme = ExtResource("1_3fwi6")
-text = "+Input Box"
+text = "+Keyword Box"
 alignment = 0
 
 [node name="AddRollBoxButton" type="Button" parent="TabContainer/Story"]
@@ -583,6 +582,7 @@ access = 2
 [connection signal="connection_to_empty" from="TabContainer/Story/StoryGraph" to="TabContainer/Story/StoryGraph" method="_on_connection_to_empty"]
 [connection signal="pressed" from="TabContainer/Story/AddTextBoxButton" to="TabContainer/Story/StoryGraph" method="_on_add_text_box_button_pressed"]
 [connection signal="pressed" from="TabContainer/Story/AddChoiceBoxButton" to="TabContainer/Story/StoryGraph" method="_on_add_choice_box_button_pressed"]
+[connection signal="pressed" from="TabContainer/Story/AddKeywordBoxButton" to="TabContainer/Story/StoryGraph" method="_on_add_keyword_box_button_pressed"]
 [connection signal="pressed" from="TabContainer/Characters/MarginContainer/ScrollContainer/GridContainer/AddCharacterButton" to="TabContainer/Characters" method="_on_add_character_button_pressed"]
 [connection signal="pressed" from="TabContainer/Characters/AddCharacterWindow/VBoxContainer/HBoxContainer/HideWindow" to="TabContainer/Characters" method="_on_hide_window_pressed"]
 [connection signal="pressed" from="TabContainer/Characters/AddCharacterWindow/VBoxContainer/FinishButton" to="TabContainer/Characters" method="_on_finish_button_pressed"]

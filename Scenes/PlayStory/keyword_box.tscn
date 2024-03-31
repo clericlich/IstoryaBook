@@ -1,10 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://q8n403rd4vil"]
+[gd_scene load_steps=5 format=3 uid="uid://boluic4veheq8"]
 
-[ext_resource type="Script" path="res://Scenes/PlayStory/choice_box.gd" id="1_okpwe"]
-[ext_resource type="FontFile" uid="uid://ch1yfvb3bpbgv" path="res://Assets/Font/Sedgwick_Ave/SedgwickAve-Regular.ttf" id="1_xs6na"]
+[ext_resource type="FontFile" uid="uid://ch1yfvb3bpbgv" path="res://Assets/Font/Sedgwick_Ave/SedgwickAve-Regular.ttf" id="1_j0x4o"]
+[ext_resource type="Script" path="res://Scenes/PlayStory/keyword_box.gd" id="1_vy38h"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_a0loq"]
-font = ExtResource("1_xs6na")
+font = ExtResource("1_j0x4o")
 font_size = 60
 outline_size = 18
 outline_color = Color(0, 0, 0, 1)
@@ -14,13 +14,13 @@ font_size = 30
 outline_size = 18
 outline_color = Color(0, 0, 0, 1)
 
-[node name="ChoiceBox" type="VBoxContainer" node_paths=PackedStringArray("character_label", "text_label", "choices_container")]
+[node name="KeywordBox" type="VBoxContainer" node_paths=PackedStringArray("character_label", "text_label", "keyword_line")]
 custom_minimum_size = Vector2(1500, 0)
 theme_override_constants/separation = 15
-script = ExtResource("1_okpwe")
+script = ExtResource("1_vy38h")
 character_label = NodePath("VBoxContainer/CharacterLabel")
 text_label = NodePath("VBoxContainer/TextLabel")
-choices_container = NodePath("VBoxContainer/ChoicesContainer")
+keyword_line = NodePath("VBoxContainer/HBoxContainer/KeywordLine")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -42,7 +42,21 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="ChoicesContainer" type="VBoxContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(800, 0)
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+
+[node name="KeywordLine" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+placeholder_text = "Type Here."
+
+[node name="EnterButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Enter"
+
+[connection signal="text_submitted" from="VBoxContainer/HBoxContainer/KeywordLine" to="." method="_on_keyword_line_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/EnterButton" to="." method="_on_enter_button_pressed"]

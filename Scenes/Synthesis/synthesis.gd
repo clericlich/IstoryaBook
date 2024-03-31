@@ -17,7 +17,10 @@ func _ready():
 	
 	for input in inputs:
 		var new_user_input = user_input.instantiate()
-		new_user_input.set_choice_text(input["choice"])
+		if input.has("choice"):
+			new_user_input.set_input_text(input["choice"])
+		if input.has("keyword"):
+			new_user_input.set_input_text(input["keyword"])
 		new_user_input.set_points_value(input["points"])
 		value = value + input["points"]
 		

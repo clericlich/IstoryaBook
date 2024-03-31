@@ -5,6 +5,7 @@ extends GraphEdit
 
 var text_box_scene = preload("res://Scenes/CreateStory/text_box.tscn")
 var choice_box_scene = preload("res://Scenes/CreateStory/choice_box.tscn")
+var keyword_box_scene = preload("res://Scenes/CreateStory/keyword_box.tscn")
 
 var characters_list = []
 var resources_list = []
@@ -32,10 +33,21 @@ func _on_add_choice_box_button_pressed():
 	
 	self.add_child(new_choice_box, true)
 	new_choice_box.request_delete.connect(delete_node)
-	new_choice_box.choice_delete.connect(choice_delete)
+	new_choice_box.choice_delete.connect(item_delete)
 	new_choice_box.update_characters_list(characters_list)
 	new_choice_box.update_resources_list(resources_list)
 
+func _on_add_keyword_box_button_pressed():
+	var new_keyword_box = keyword_box_scene.instantiate()
+	new_keyword_box.position_offset.x = (scroll_offset.x + 170) / self.zoom
+	new_keyword_box.position_offset.y = (scroll_offset.y + 100) / self.zoom
+	
+	self.add_child(new_keyword_box, true)
+	new_keyword_box.request_delete.connect(delete_node)
+	new_keyword_box.keyword_delete.connect(item_delete)
+	new_keyword_box.update_characters_list(characters_list)
+	new_keyword_box.update_resources_list(resources_list)
+	pass # Replace with function body.
 
 func _on_connection_request(from_node, from_port, to_node, to_port):
 	#Connects to only one port. Disconnects other ports when new connect
@@ -52,7 +64,7 @@ func _on_connection_to_empty(from_node, from_port, release_position):
 		if connection["from_node"] == from_node and connection["from_port"] == from_port:
 			disconnect_node(from_node, from_port, connection["to_node"], connection["to_port"])
 
-func choice_delete(node, choice, slot):
+func item_delete(node, item, slot):
 	var connection_list = self.get_connection_list()
 	for connection in connection_list:
 		if connection["from_node"] == node.name and connection["from_port"] == slot:
@@ -64,7 +76,7 @@ func choice_delete(node, choice, slot):
 		if connection["from_node"] == node.name and connection["from_port"] > slot:
 			connect_node(connection["from_node"], connection["from_port"] - 1, connection["to_node"], connection["to_port"])
 
-	choice.queue_free()
+	item.queue_free()
 
 func delete_node(node):
 	var connection_list = self.get_connection_list()
@@ -121,6 +133,11 @@ func get_story_data():
 					if choice["port"] == connection["from_port"]:
 						choice["next"] = connection["to_node"]
 
+		if story_box_data["type"] == "keyword":
+			for keyword in story_box_data["keywords"]:
+				for connection in filtered_list:
+					if keyword["port"] == connection["from_port"]:
+						keyword["next"] = connection["to_node"]
 
 		#if can_add:
 		#	story_tree.push_back(story_box_data)
@@ -164,10 +181,18 @@ func load_from_save(story_tree, positions, connections):
 				var new_choice_box = choice_box_scene.instantiate()
 				self.add_child(new_choice_box, true)
 				new_choice_box.request_delete.connect(delete_node)
-				new_choice_box.choice_delete.connect(choice_delete)
+				new_choice_box.choice_delete.connect(item_delete)
 				new_choice_box.update_characters_list(characters_list)
 				new_choice_box.update_resources_list(resources_list)
 				new_choice_box.load_from_save(story_box)
+			"keyword":
+				var new_keyword_box = keyword_box_scene.instantiate()
+				self.add_child(new_keyword_box, true)
+				new_keyword_box.request_delete.connect(delete_node)
+				new_keyword_box.keyword_delete.connect(item_delete)
+				new_keyword_box.update_characters_list(characters_list)
+				new_keyword_box.update_resources_list(resources_list)
+				new_keyword_box.load_from_save(story_box)
 
 	for children in self.get_children():
 		print(children)
@@ -184,3 +209,5 @@ func load_from_save(story_tree, positions, connections):
 
 	for connection in connections:
 		connect_node(connection["from_node"],connection["from_port"],connection["to_node"],connection["to_port"])
+
+

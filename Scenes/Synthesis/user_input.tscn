@@ -9,12 +9,12 @@ font_size = 24
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
-[node name="UserInput" type="HBoxContainer" node_paths=PackedStringArray("choice_text", "points_value")]
+[node name="UserInput" type="HBoxContainer" node_paths=PackedStringArray("input_text", "points_value")]
 script = ExtResource("1_4ivl2")
-choice_text = NodePath("ChoiceText")
+input_text = NodePath("InputText")
 points_value = NodePath("PointsValue")
 
-[node name="ChoiceText" type="LineEdit" parent="."]
+[node name="InputText" type="LineEdit" parent="."]
 custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)

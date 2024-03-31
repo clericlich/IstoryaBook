@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5gc0idho3dlu"]
+
+[ext_resource type="Script" path="res://Scenes/CreateStory/keyword.gd" id="1_padnq"]
+
+[node name="Keyword" type="PanelContainer" node_paths=PackedStringArray("keyword_input", "points_input")]
+self_modulate = Color(1, 1, 1, 0)
+script = ExtResource("1_padnq")
+keyword_input = NodePath("HBoxContainer/KeywordInput")
+points_input = NodePath("HBoxContainer/PointsInput")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="DeleteButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "X"
+
+[node name="KeywordInput" type="LineEdit" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Type Keyword Here."
+
+[node name="SubtractButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "-"
+
+[node name="PointsInput" type="LineEdit" parent="HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+placeholder_text = "Points"
+alignment = 1
+
+[node name="AddButton" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "+"
+
+[connection signal="pressed" from="HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/SubtractButton" to="." method="_on_subtract_button_pressed"]
+[connection signal="text_submitted" from="HBoxContainer/PointsInput" to="." method="_on_points_input_text_submitted"]
+[connection signal="pressed" from="HBoxContainer/AddButton" to="." method="_on_add_button_pressed"]

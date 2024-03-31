@@ -107,7 +107,7 @@ autowrap_mode = 2
 
 [node name="Label" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Choices:"
+text = "Answers:"
 label_settings = SubResource("LabelSettings_u6tgv")
 
 [node name="UserInputs" type="VBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
