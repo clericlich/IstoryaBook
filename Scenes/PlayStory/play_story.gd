@@ -128,6 +128,7 @@ func go_to_next_story_box(curr, user_input = null):
 	if user_input != null:
 		if not user_input.has("next"):
 			history_panel.add_story_box(curr, user_input)
+			StoryHandler.store_user_input(user_input)
 			play_story_box(end_box)
 			return
 	else:
@@ -139,7 +140,7 @@ func go_to_next_story_box(curr, user_input = null):
 	match curr["type"]:
 		"start":
 			#history_panel.add_story_box(curr)
-			
+
 			for story_box in story_tree:
 				if story_box["storyBoxName"] == curr["next"]:
 					current_story_box = story_box
