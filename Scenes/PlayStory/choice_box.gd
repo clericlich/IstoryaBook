@@ -31,5 +31,6 @@ func set_choices(choices):
 		var new_choice_button = choice_button_scene.instantiate()
 		choices_container.add_child(new_choice_button)
 		new_choice_button.text = choice["choice"]
-		new_choice_button.next = choice["next"]
+		if choice.has("next"):
+			new_choice_button.next = choice["next"]
 		new_choice_button.pressed.connect(func(): choice_pressed.emit(choice))

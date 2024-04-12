@@ -30,5 +30,7 @@ func _ready():
 
 
 func _on_done_button_pressed():
+	StoryHandler.current_story_data = {}
+	StoryHandler.user_inputs = []
 	ScenesHandler.switch_scene("res://Scenes/title_screen.tscn")
 	pass # Replace with function body.
