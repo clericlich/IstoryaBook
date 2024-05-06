@@ -16,7 +16,7 @@ shadow_offset = Vector2(5, 5)
 
 [sub_resource type="LabelSettings" id="LabelSettings_u6tgv"]
 font = ExtResource("3_h1113")
-font_size = 32
+font_size = 48
 outline_size = 14
 outline_color = Color(0, 0, 0, 1)
 
@@ -54,11 +54,12 @@ offset_top = 20.0
 offset_right = 158.5
 offset_bottom = 111.0
 grow_horizontal = 2
-text = "Synthesis"
+text = "End"
 label_settings = SubResource("LabelSettings_e7wu3")
+horizontal_alignment = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
-custom_minimum_size = Vector2(1500, 700)
+custom_minimum_size = Vector2(1500, 680)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -68,7 +69,7 @@ anchor_bottom = 0.5
 offset_left = -750.0
 offset_top = -310.0
 offset_right = 750.0
-offset_bottom = 390.0
+offset_bottom = 370.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -83,29 +84,29 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 10
 
-[node name="LessonLabelTitle" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="LessonLabelTitle" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer" groups=["synthesis_labels"]]
 layout_mode = 2
 text = "Lesson:"
 label_settings = SubResource("LabelSettings_u6tgv")
 
-[node name="LessonLabel" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="LessonLabel" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer" groups=["synthesis_labels"]]
 custom_minimum_size = Vector2(1450, 0)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_u6tgv")
 autowrap_mode = 2
 
-[node name="ExplanationLabelTitle" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="ExplanationLabelTitle" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer" groups=["synthesis_labels"]]
 layout_mode = 2
 text = "Explanation:"
 label_settings = SubResource("LabelSettings_u6tgv")
 
-[node name="ExplanationLabel" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="ExplanationLabel" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer" groups=["synthesis_labels"]]
 custom_minimum_size = Vector2(1450, 0)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_u6tgv")
 autowrap_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer" groups=["synthesis_labels"]]
 layout_mode = 2
 text = "Answers:"
 label_settings = SubResource("LabelSettings_u6tgv")
@@ -116,12 +117,12 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" groups=["synthesis_labels"]]
 layout_mode = 2
 text = "Score: "
 label_settings = SubResource("LabelSettings_u6tgv")
 
-[node name="FinalScore" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="FinalScore" type="Label" parent="ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer" groups=["synthesis_labels"]]
 layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_u6tgv")
@@ -139,6 +140,7 @@ offset_right = -15.0
 offset_bottom = -15.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_font_sizes/font_size = 28
 text = "Done"
 
 [connection signal="pressed" from="DoneButton" to="." method="_on_done_button_pressed"]

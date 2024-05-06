@@ -21,6 +21,10 @@ func add_story_box(story_box, user_input = null):
 		if user_input != null and story_box["type"] == "choice":
 			new_history_box.set_user_input(user_input["choice"])
 
+		if user_input != null and story_box["type"] == "keyword":
+			new_history_box.set_user_input(user_input["keyword"])
+
+
 		history_list.add_child(new_history_box)
 
 

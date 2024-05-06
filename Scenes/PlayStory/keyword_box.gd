@@ -9,6 +9,9 @@ signal keyword_entered
 var keywords = []
 
 func _ready():
+	add_to_group("storyboxes")
+	set_text_size()
+	
 	var fade_tween = create_tween()
 	character_label.set_indexed("modulate:a", 0)
 	fade_tween.tween_property(character_label, "modulate:a", 1, 0.5)
@@ -26,16 +29,21 @@ func set_text(text):
 	text_label.text = text
 	pass
 
+func set_text_size():
+	text_label.label_settings.font_size = StoryPlayerSettings.text_size
+	character_label.label_settings.font_size = StoryPlayerSettings.text_size + 30
+	keyword_line.set("theme_override_font_sizes/font_size", StoryPlayerSettings.text_size + 2)
+	
 func set_keywords(sent_keywords):
 	keywords = sent_keywords
 
 func _on_keyword_line_text_submitted(new_text):
 	for keyword in keywords:
-		if new_text == keyword["keyword"]:
+		if new_text.to_lower() == keyword["keyword"].to_lower():
 			keyword_entered.emit(keyword)
 
 func _on_enter_button_pressed():
 	var new_text = keyword_line.text
 	for keyword in keywords:
-		if new_text == keyword["keyword"]:
+		if new_text.to_lower() == keyword["keyword"].to_lower():
 			keyword_entered.emit(keyword)

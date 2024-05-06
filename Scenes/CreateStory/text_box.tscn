@@ -90,11 +90,12 @@ flat = false
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 2
-text = " Dialog:"
+text = " Dialogue:"
 
 [node name="DialogInput" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+wrap_mode = 1
 
 [node name="BackgroundImageContainer" type="HBoxContainer" parent="."]
 layout_mode = 2

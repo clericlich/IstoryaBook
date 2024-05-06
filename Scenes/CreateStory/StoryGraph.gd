@@ -40,7 +40,7 @@ func _on_add_choice_box_button_pressed():
 func _on_add_keyword_box_button_pressed():
 	var new_keyword_box = keyword_box_scene.instantiate()
 	new_keyword_box.position_offset.x = (scroll_offset.x + 170) / self.zoom
-	new_keyword_box.position_offset.y = (scroll_offset.y + 100) / self.zoom
+	new_keyword_box.position_offset.y = (scroll_offset.y + 130) / self.zoom
 	
 	self.add_child(new_keyword_box, true)
 	new_keyword_box.request_delete.connect(delete_node)

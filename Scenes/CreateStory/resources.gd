@@ -7,7 +7,7 @@ signal resource_list_changed
 @export var resource_list:Node
 
 var resources_paths = []
-var file_extensions = ["png", "mp3", "wav", "jpg", "jpeg"]
+var file_extensions = ["png", "mp3", "jpg", "jpeg"]
 
 
 func _ready():

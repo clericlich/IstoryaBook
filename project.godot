@@ -21,6 +21,7 @@ ScenesHandler="*res://Scenes/autoloads/scenes_handler.gd"
 StoryHandler="*res://Scenes/autoloads/story_handler.gd"
 GlobalSettings="*res://Scenes/autoloads/global_settings.gd"
 AudioImporter="*res://Scenes/autoloads/audio_importer.gd"
+StoryPlayerSettings="*res://Scenes/autoloads/story_player_settings.gd"
 
 [display]
 

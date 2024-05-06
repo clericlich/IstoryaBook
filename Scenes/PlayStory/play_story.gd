@@ -9,6 +9,7 @@ var keyword_box_scene = preload("res://Scenes/PlayStory/keyword_box.tscn")
 @export var scroll_container:Node
 @export var characters_panel:Node
 @export var history_panel:Node
+@export var settings_panel:Node
 @export var return_prompt:Node
 @export var background:Node
 @export var audio_stream_player1:Node
@@ -173,6 +174,7 @@ func go_to_next_story_box(curr, user_input = null):
 
 func _on_folder_button_pressed():
 	characters_panel.hide()
+	settings_panel.hide()
 	if history_panel.visible:
 		history_panel.hide()
 	else:
@@ -181,12 +183,22 @@ func _on_folder_button_pressed():
 
 func _on_characters_button_pressed():
 	history_panel.hide()
-	
+	settings_panel.hide()
 	if characters_panel.visible:
 		characters_panel.hide()
 	else:
 		characters_panel.show()
 
+func _on_settings_button_pressed():
+	characters_panel.hide()
+	history_panel.hide()
+	if settings_panel.visible:
+		settings_panel.hide()
+	else:
+		settings_panel.show()
+
 
 func _on_return_button_pressed():
 	return_prompt.show()
+
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ddbgrc6qpljj3"]
+[gd_scene load_steps=17 format=3 uid="uid://ddbgrc6qpljj3"]
 
 [ext_resource type="Script" path="res://Scenes/PlayStory/play_story.gd" id="1_28kaq"]
 [ext_resource type="Texture2D" uid="uid://dqaswtxv3m120" path="res://Assets/Images/round_settings_white_24dp.png" id="1_vclry"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dd584d8tqqd5h" path="res://Assets/Images/round_group_white_24dp.png" id="2_t42rk"]
 [ext_resource type="FontFile" uid="uid://ch1yfvb3bpbgv" path="res://Assets/Font/Sedgwick_Ave/SedgwickAve-Regular.ttf" id="6_53gjj"]
 [ext_resource type="Script" path="res://Scenes/PlayStory/characters_panel.gd" id="7_xiik2"]
+[ext_resource type="Script" path="res://Scenes/PlayStory/settings_panel.gd" id="8_nyxuf"]
 [ext_resource type="Script" path="res://Scenes/PlayStory/history_panel.gd" id="8_u35x3"]
 [ext_resource type="Script" path="res://Scenes/PlayStory/exit_prompt.gd" id="9_5fcup"]
 
@@ -40,6 +41,9 @@ font_size = 42
 outline_size = 12
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="Theme" id="Theme_g4t5d"]
+default_font_size = 24
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ssmji"]
 content_margin_left = 10.0
 content_margin_top = 10.0
@@ -59,7 +63,7 @@ corner_radius_bottom_left = 2
 [sub_resource type="LabelSettings" id="LabelSettings_ky0jq"]
 font_size = 28
 
-[node name="play_story" type="Control" node_paths=PackedStringArray("story_title", "text_area", "scroll_container", "characters_panel", "history_panel", "return_prompt", "background", "audio_stream_player1", "audio_stream_player2")]
+[node name="play_story" type="Control" node_paths=PackedStringArray("story_title", "text_area", "scroll_container", "characters_panel", "history_panel", "settings_panel", "return_prompt", "background", "audio_stream_player1", "audio_stream_player2")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -72,6 +76,7 @@ text_area = NodePath("ScrollContainer/TextArea")
 scroll_container = NodePath("ScrollContainer")
 characters_panel = NodePath("CharactersPanel")
 history_panel = NodePath("HistoryPanel")
+settings_panel = NodePath("SettingsPanel")
 return_prompt = NodePath("ExitPrompt")
 background = NodePath("Background")
 audio_stream_player1 = NodePath("AudioStreamPlayer")
@@ -139,7 +144,6 @@ icon = ExtResource("2_t42rk")
 icon_alignment = 1
 
 [node name="SettingsButton" type="Button" parent="HBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 icon = ExtResource("1_vclry")
@@ -238,6 +242,93 @@ size_flags_vertical = 3
 theme_override_constants/h_separation = 50
 theme_override_constants/v_separation = 30
 columns = 3
+
+[node name="SettingsPanel" type="PanelContainer" parent="." node_paths=PackedStringArray("volume_value", "volume_slider")]
+visible = false
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3de53")
+script = ExtResource("8_nyxuf")
+volume_value = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Volume/VolumeValue")
+volume_slider = NodePath("MarginContainer/ScrollContainer/VBoxContainer/Volume/VolumeSlider")
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SettingsPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsPanel/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="Title" type="HBoxContainer" parent="SettingsPanel/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CharacterLabel" type="Label" parent="SettingsPanel/MarginContainer/ScrollContainer/VBoxContainer/Title"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Settings"
+label_settings = SubResource("LabelSettings_oh3qr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseButton" type="Button" parent="SettingsPanel/MarginContainer/ScrollContainer/VBoxContainer/Title"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+text = "X"
+
+[node name="Volume" type="HBoxContainer" parent="SettingsPanel/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/ScrollContainer/VBoxContainer/Volume"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Volume:  "
+
+[node name="VolumeSlider" type="HSlider" parent="SettingsPanel/MarginContainer/ScrollContainer/VBoxContainer/Volume"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+size_flags_vertical = 1
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="VolumeValue" type="Label" parent="SettingsPanel/MarginContainer/ScrollContainer/VBoxContainer/Volume"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "100"
+
+[node name="TextSize" type="HBoxContainer" parent="SettingsPanel/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingsPanel/MarginContainer/ScrollContainer/VBoxContainer/TextSize"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Text Size: "
+
+[node name="SpinBox" type="SpinBox" parent="SettingsPanel/MarginContainer/ScrollContainer/VBoxContainer/TextSize"]
+layout_mode = 2
+theme = SubResource("Theme_g4t5d")
+max_value = 200.0
+value = 30.0
 
 [node name="HistoryPanel" type="PanelContainer" parent="." node_paths=PackedStringArray("history_list")]
 visible = false
@@ -342,7 +433,11 @@ text = "No"
 [connection signal="pressed" from="ReturnButton" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/FolderButton" to="." method="_on_folder_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/CharactersButton" to="." method="_on_characters_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="CharactersPanel/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/CloseButton" to="CharactersPanel" method="_on_close_button_pressed"]
+[connection signal="pressed" from="SettingsPanel/MarginContainer/ScrollContainer/VBoxContainer/Title/CloseButton" to="SettingsPanel" method="_on_close_button_pressed"]
+[connection signal="value_changed" from="SettingsPanel/MarginContainer/ScrollContainer/VBoxContainer/Volume/VolumeSlider" to="SettingsPanel" method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="SettingsPanel/MarginContainer/ScrollContainer/VBoxContainer/TextSize/SpinBox" to="SettingsPanel" method="_on_spin_box_value_changed"]
 [connection signal="pressed" from="HistoryPanel/MarginContainer/ScrollContainer/VBoxContainer/HBoxContainer/CloseButton" to="HistoryPanel" method="_on_close_button_pressed"]
 [connection signal="pressed" from="ExitPrompt/VBoxContainer/HBoxContainer2/YesButton" to="ExitPrompt" method="_on_yes_button_pressed"]
 [connection signal="pressed" from="ExitPrompt/VBoxContainer/HBoxContainer2/NoButton" to="ExitPrompt" method="_on_no_button_pressed"]

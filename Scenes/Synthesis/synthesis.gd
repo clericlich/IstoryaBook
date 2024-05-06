@@ -14,7 +14,7 @@ var value = 0
 func _ready():
 	lesson_label.text = "    " + story_data["lessonInfo"]["lesson"]
 	explanation_label.text = "    " + story_data["lessonInfo"]["explanation"]
-	
+
 	for input in inputs:
 		var new_user_input = user_input.instantiate()
 		if input.has("choice"):

@@ -17,7 +17,7 @@ var keyword_scene = preload("res://Scenes/CreateStory/keyword.tscn")
 @onready var dialog_input = $DialogInput
 
 var image_extensions = ["png", "jpg", "jpeg"]
-var sound_extensions = ["mp3", "wav"]
+var sound_extensions = ["mp3"]
 
 func _ready():
 	add_to_group("storyboxes")

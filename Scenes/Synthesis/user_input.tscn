@@ -5,7 +5,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_02qfb"]
 font = ExtResource("2_g6n1n")
-font_size = 24
+font_size = 32
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
@@ -21,7 +21,7 @@ theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("2_g6n1n")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 32
 text = "Choice#1"
 editable = false
 

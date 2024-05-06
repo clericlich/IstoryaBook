@@ -99,11 +99,12 @@ flat = false
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 2
-text = " Dialog:"
+text = " Dialogue:"
 
 [node name="DialogInput" type="TextEdit" parent="."]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+wrap_mode = 1
 
 [node name="BackgroundImageContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -145,7 +146,7 @@ text = "Keywords:"
 [node name="AddKeywordButton" type="Button" parent="HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 10
-text = "+Add Choice"
+text = "+Add Keyword"
 
 [connection signal="pressed" from="HBoxContainer/DeleteButton" to="." method="_on_delete_button_pressed"]
 [connection signal="pressed" from="HBoxContainer2/AddKeywordButton" to="." method="_on_add_keyword_button_pressed"]

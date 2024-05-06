@@ -17,7 +17,7 @@ var choice_scene = preload("res://Scenes/CreateStory/choice.tscn")
 @onready var dialog_input = $DialogInput
 
 var image_extensions = ["png", "jpg", "jpeg"]
-var sound_extensions = ["mp3", "wav"]
+var sound_extensions = ["mp3"]
 
 func _ready():
 	add_to_group("storyboxes")
@@ -98,7 +98,7 @@ func sound_resource2_selected(id):
 
 func _on_add_choice_button_pressed():
 	var new_choice = choice_scene.instantiate()
-	
+
 	self.add_child(new_choice)
 	self.set_slot_enabled_right(new_choice.get_index(), true)
 	new_choice.choice_delete.connect(func(): choice_delete.emit(self, new_choice, new_choice.get_index() - 7))

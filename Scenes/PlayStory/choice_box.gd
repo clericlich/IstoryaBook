@@ -9,6 +9,9 @@ var choice_button_scene = preload("res://Scenes/PlayStory/choice_button.tscn")
 @export var choices_container:Node
 
 func _ready():
+	add_to_group("storyboxes")
+	set_text_size()
+	
 	var fade_tween = create_tween()
 	character_label.set_indexed("modulate:a", 0)
 	fade_tween.tween_property(character_label, "modulate:a", 1, 0.5)
@@ -25,6 +28,10 @@ func set_character(text):
 func set_text(text):
 	text_label.text = text
 	pass
+
+func set_text_size():
+	text_label.label_settings.font_size = StoryPlayerSettings.text_size
+	character_label.label_settings.font_size = StoryPlayerSettings.text_size + 30
 
 func set_choices(choices):
 	for choice in choices:
