@@ -125,6 +125,10 @@ text = "Play Story"
 layout_mode = 2
 text = "Create Story"
 
+[node name="LoadStoryButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Load Story"
+
 [node name="Settings" type="Button" parent="VBoxContainer"]
 visible = false
 layout_mode = 2
@@ -198,6 +202,7 @@ autowrap_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/PlayStoryButton" to="." method="_on_play_story_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/CreateStoryButton" to="." method="_on_create_story_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/LoadStoryButton" to="." method="_on_load_story_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="InfoButton" to="." method="_on_info_button_pressed"]

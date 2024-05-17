@@ -7,6 +7,7 @@ extends Control
 @export var save_dialog:Node
 @export var load_dialog:Node
 @export var lesson_info_tab:Node
+@export var resources_tab:Node
 
 var story_data = {}
 var save_data = {}
@@ -17,7 +18,17 @@ var save_data = {}
 
 func _ready():
 	ScenesHandler.switching_scene = false
-	pass # Replace with function body.
+	if InitialCreateSettings.from_initial_create == true:
+		InitialCreateSettings.from_initial_create = false
+		title_input.text =InitialCreateSettings.initial_title
+		if InitialCreateSettings.initial_resource_folder != "":
+			resources_tab._on_resource_file_dialog_dir_selected(InitialCreateSettings.initial_resource_folder)
+
+	if InitialCreateSettings.from_load == true:
+		InitialCreateSettings.from_load = false
+		if InitialCreateSettings.initial_resource_folder != "":
+			resources_tab._on_resource_file_dialog_dir_selected(InitialCreateSettings.initial_resource_folder)
+		_on_load_dialog_file_selected(InitialCreateSettings.initial_title)
 
 
 func _on_finish_button_pressed():

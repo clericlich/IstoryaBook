@@ -64,7 +64,7 @@ corner_radius_bottom_left = 20
 [sub_resource type="Theme" id="Theme_ou5rp"]
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_pc8cf")
 
-[node name="CreateStory" type="Control" node_paths=PackedStringArray("story_graph", "characters_tab", "title_input", "file_dialog", "save_dialog", "load_dialog", "lesson_info_tab")]
+[node name="CreateStory" type="Control" node_paths=PackedStringArray("story_graph", "characters_tab", "title_input", "file_dialog", "save_dialog", "load_dialog", "lesson_info_tab", "resources_tab")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -79,6 +79,7 @@ file_dialog = NodePath("FileDialog")
 save_dialog = NodePath("SaveDialog")
 load_dialog = NodePath("LoadDialog")
 lesson_info_tab = NodePath("TabContainer/LessonInfo")
+resources_tab = NodePath("TabContainer/Resources")
 
 [node name="Items" type="Control" parent="."]
 visible = false

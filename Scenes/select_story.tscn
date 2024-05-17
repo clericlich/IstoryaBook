@@ -142,6 +142,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="AddStory" type="PanelContainer" parent="ScrollContainer/StoryTabContainer"]
+visible = false
 layout_mode = 2
 theme = SubResource("Theme_ioo17")
 
@@ -170,7 +171,7 @@ offset_bottom = 172.0
 
 [node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2
-text = "Story Folder Location:"
+text = "Set Story Folder Location:"
 label_settings = SubResource("LabelSettings_sdb87")
 
 [node name="StoryFolderButton" type="Button" parent="HBoxContainer"]
@@ -179,6 +180,7 @@ theme_override_font_sizes/font_size = 24
 text = "Set Story Folder"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 100.0
 offset_top = 180.0
@@ -212,10 +214,11 @@ file_mode = 2
 access = 2
 
 [node name="ResourceFolderFileDialog" type="FileDialog" parent="."]
-title = "Open a Directory"
+title = "Set the Resource Folder"
 initial_position = 1
 size = Vector2i(900, 500)
 ok_button_text = "Select Current Folder"
+mode_overrides_title = false
 file_mode = 2
 access = 2
 

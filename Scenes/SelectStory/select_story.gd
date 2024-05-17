@@ -47,6 +47,7 @@ func _on_file_dialog_file_selected(path, loaded = false):
 		var story_tab = story_tab_scene.instantiate()
 		story_tab_container.add_child(story_tab)
 		story_tab_container.move_child(story_tab, -2)
+		story_tab.connect("play_story_pressed", func():resource_folder_file_dialog.show())
 
 		if loaded == true:
 			story_tab.add_to_group("loaded_story_tabs")
@@ -74,6 +75,8 @@ func _on_resource_folder_file_dialog_dir_selected(dir):
 	resource_folder_button.text = dir
 	GlobalSettings.settings["ResourceFolder"] = dir
 	GlobalSettings.save_settings()
+	
+	ScenesHandler.switch_scene("res://Scenes/play_story.tscn")
 
 func clear_files():
 	for node in get_tree().get_nodes_in_group("loaded_story_tabs"):

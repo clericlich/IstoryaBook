@@ -9,7 +9,7 @@ signal continue_pressed
 func _ready():
 	add_to_group("storyboxes")
 	set_text_size()
-	
+
 	var fade_tween = create_tween()
 	character_label.set_indexed("modulate:a", 0)
 	fade_tween.tween_property(character_label, "modulate:a", 1, 0.5)
@@ -32,3 +32,7 @@ func _on_continue_button_pressed():
 	continue_pressed.emit()
 	continue_button.hide()
 
+func _input(event):
+	if event.is_action_pressed("ui_accept"):
+		print("pressed")
+		_on_continue_button_pressed()

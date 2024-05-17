@@ -29,15 +29,17 @@ func _on_resource_file_dialog_dir_selected(dir):
 
 
 func get_resources_paths():
+	var dir = DirAccess
 	resources_paths.clear()
 	if GlobalSettings.settings.has("ResourceFolder"):
-		var resource_folder_dir = DirAccess.open(GlobalSettings.settings["ResourceFolder"])
-		for file in resource_folder_dir.get_files():
-			if file_extensions.has(file.get_extension()):
-				resources_paths.push_back(GlobalSettings.settings["ResourceFolder"]+"/"+file)
-		resources_paths.sort()
-	set_resources_list()
-	resource_list_changed.emit()
+		var resource_folder_dir = dir.open(GlobalSettings.settings["ResourceFolder"])
+		if resource_folder_dir != null:
+			for file in resource_folder_dir.get_files():
+				if file_extensions.has(file.get_extension()):
+					resources_paths.push_back(GlobalSettings.settings["ResourceFolder"]+"/"+file)
+			resources_paths.sort()
+		set_resources_list()
+		resource_list_changed.emit()
 	#print(resources_paths)
 
 
